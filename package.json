@@ -6,7 +6,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx nodemon ./src/server.js"
+    "dev": "npx nodemon ./src/server.js",
+    "build": "npx prisma generate && npx prisma migrate deploy",
+    "start": "forever start ./src/server.js"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +22,7 @@
     "dotenv": "^16.0.2",
     "express": "^4.18.1",
     "express-async-errors": "^3.1.1",
+    "forever": "^4.0.3",
     "joi": "^17.6.0",
     "pg": "^8.8.0"
   }
