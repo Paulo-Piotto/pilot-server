@@ -12,7 +12,8 @@ async function find(clientName) {
    const result = await client.clients.findMany({
       where: {
         name: {
-         contains: clientName
+         contains: clientName,
+         mode: 'insensitive',
         },
       },
     })

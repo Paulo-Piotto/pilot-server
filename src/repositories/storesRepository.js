@@ -12,7 +12,8 @@ async function find(storeName) {
    const result = await client.stores.findMany({
       where: {
         name: {
-         contains: storeName
+         contains: storeName,
+         mode: 'insensitive',
         },
       },
     })
