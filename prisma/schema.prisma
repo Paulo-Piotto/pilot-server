@@ -38,7 +38,7 @@ model orders {
   store_id         Int
   client_id        Int
   value            Int
-  value_negotiated Int
+  value_negotiated Int?
   value_cash       Int
   value_financed   Int
   clients          clients  @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "orders_client_id_foreign")
