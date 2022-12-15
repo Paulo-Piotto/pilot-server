@@ -31,11 +31,16 @@ async function findAll() {
             value_negotiated: true,
 
         },
+        where: {
+          value: {
+             gt: 100000
+          }
+        }
     })
     return result;
 }
 
-async function find(orderInvoice) {
+async function findByInvoice(orderInvoice) {
     const result = await client.orders.findMany({
        where: {
          invoice: {
@@ -47,6 +52,42 @@ async function find(orderInvoice) {
     return result;
  }
 
+async function find(searchSettings) {
+  const result = await client.orders.findMany({
+    orderBy: [
+      {
+        date: 'desc',
+      }
+    ],
+    select: {
+      id: true,
+      invoice: true,
+      date: true,
+      stores: true,
+      clients: true,
+      value: true,
+      value_financed: true,
+      value_cash: true,
+      value_negotiated: true,
+    },
+    where: {
+      date: {
+        gte: searchSettings.initialDate,
+        lte: searchSettings.endDate,
+      },
+      store_id: {
+        gte: searchSettings.storeMin,
+        lte: searchSettings.storeMax,
+      },
+      client_id: {
+        gte: searchSettings.clientMin,
+        lte: searchSettings.clientMax,
+      }
+    }
+  })
+  return result;
+}
+
  export { 
-    create, findAll, find
+    create, findAll, findByInvoice, find
  }
