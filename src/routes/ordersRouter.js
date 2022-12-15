@@ -11,8 +11,12 @@ ordersRouter.post(`${PATH}`,
   ordersController.post
 );
 
-ordersRouter.get(`${PATH}`,
-ordersController.findAll
+ordersRouter.get(`${PATH}/all`,
+  ordersController.findAll
+);
+
+ordersRouter.get(`${PATH}`, 
+  ordersController.find
 );
 
 export default ordersRouter;

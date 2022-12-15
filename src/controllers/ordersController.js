@@ -10,4 +10,11 @@ async function findAll(req, res){
   return res.status(200).send(result);
 }
 
-export { post, findAll };
+async function find(req, res){
+  const searchSettings = req.query;
+
+  const result = await ordersService.find(searchSettings);
+  return res.status(200).send(result);
+}
+
+export { post, findAll, find };
