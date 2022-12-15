@@ -19,6 +19,11 @@ async function create(newOrder) {
 
 async function findAll() {
     const result = await client.orders.findMany({
+      orderBy: [
+        {
+          date: 'desc',
+        }
+      ],
         select: {
             id: true,
             invoice: true,
@@ -31,11 +36,6 @@ async function findAll() {
             value_negotiated: true,
 
         },
-        where: {
-          value: {
-             gt: 100000
-          }
-        }
     })
     return result;
 }
