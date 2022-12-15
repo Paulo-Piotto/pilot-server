@@ -20,7 +20,8 @@ async function find(employeeName) {
       ],
       where: {
         name: {
-         contains: employeeName
+         contains: employeeName,
+         mode: 'insensitive',
         },
       },
     })
