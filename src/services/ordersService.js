@@ -27,7 +27,7 @@ async function find(searchSettings) {
     throw { type: "unprocessable_entity", message };
   }
 
-  if(searchSettings.store){
+  if(searchSettings.store && searchSettings.store !== '0'){
     searchSettings.storeMin = Number(searchSettings.store);
     searchSettings.storeMax = Number(searchSettings.store);
   }else{
@@ -35,7 +35,7 @@ async function find(searchSettings) {
     searchSettings.storeMax = 10000000;
   }
 
-  if(searchSettings.client){
+  if(searchSettings.client && searchSettings.client !== '0'){
     searchSettings.clientMin = Number(searchSettings.client);
     searchSettings.clientMax = Number(searchSettings.client);
   }else{
