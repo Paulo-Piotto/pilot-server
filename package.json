@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx nodemon ./src/server.js",
     "build": "npx prisma generate && npx prisma migrate deploy",
-    "start": "forever start ./src/server.js"
+    "start": "sudo forever start ./src/server.js"
   },
   "keywords": [],
   "author": "",
