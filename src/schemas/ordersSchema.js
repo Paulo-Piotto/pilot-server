@@ -6,7 +6,7 @@ const ordersSchema =Joi.object({
     store: Joi.number().required(),
     client: Joi.number().required(),
     value: Joi.number().required(),
-    negotiated: Joi.number(),
+    negotiated: Joi.any(),
     cash: Joi.number().required(),
     financed: Joi.number().required(),
 })
