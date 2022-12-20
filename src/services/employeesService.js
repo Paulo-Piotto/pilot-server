@@ -25,4 +25,13 @@ async function findAll() {
   return result;
 }
 
-export { create, find, findAll };
+async function deleteEmployee(deleteSettings) {
+  const doesntExists = await employeesRepository.findById(Number(deleteSettings.id));
+  if(!doesntExists){
+    throw { type: "not_found", message: "This employee doesn't exists" };
+  }
+  const result = await employeesRepository.deleteEmployee(Number(deleteSettings.id));
+  return result;
+}
+
+export { create, find, findAll, deleteEmployee };

@@ -25,4 +25,22 @@ async function findAll() {
    return result;
 }
 
-export { create, find, findAll };
+async function findById(id) {
+   const result = await client.clients.findUnique({
+      where: {
+        id: id,
+      },
+    })
+   return result;
+ }
+ 
+ async function deleteClient(id){
+   const result = await client.clients.delete({
+     where: {
+       id: id,
+     },
+   })
+   return result;
+ }
+
+export { create, find, findAll, findById, deleteClient };

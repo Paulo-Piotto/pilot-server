@@ -15,4 +15,15 @@ async function find(req, res) {
   return res.status(200).send(result);
 }
 
-export { post, find};
+async function deleteStore(req, res){
+  const deleteSettings = req.query;
+
+  if(!deleteSettings.id){
+    throw { type: "unprocessable_entity", message: "ID is missing" };
+  }
+
+  const result = await storesService.deleteStore(deleteSettings);
+  return res.status(200).send(result);
+}
+
+export { post, find, deleteStore};
