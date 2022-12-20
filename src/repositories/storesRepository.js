@@ -25,4 +25,22 @@ async function findAll() {
    return result;
 }
 
-export { create, find, findAll };
+async function findById(id) {
+   const result = await client.stores.findUnique({
+      where: {
+        id: id,
+      },
+    })
+   return result;
+ }
+ 
+ async function deleteStore(id){
+   const result = await client.stores.delete({
+     where: {
+       id: id,
+     },
+   })
+   return result;
+ }
+
+export { create, find, findAll, findById, deleteStore };

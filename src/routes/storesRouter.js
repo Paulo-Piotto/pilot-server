@@ -15,4 +15,8 @@ storeRouter.get(`${PATH}`,
   storesController.find
 );
 
+storeRouter.delete(`${PATH}`,
+  storesController.deleteStore
+);
+
 export default storeRouter;

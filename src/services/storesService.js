@@ -25,4 +25,13 @@ async function findAll() {
   return result;
 }
 
-export { create, find, findAll };
+async function deleteStore(deleteSettings) {
+  const doesntExists = await storesRepository.findById(Number(deleteSettings.id));
+  if(!doesntExists){
+    throw { type: "not_found", message: "This store doesn't exists" };
+  }
+  const result = await storesRepository.deleteStore(Number(deleteSettings.id));
+  return result;
+}
+
+export { create, find, findAll, deleteStore };
