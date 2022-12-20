@@ -19,4 +19,8 @@ ordersRouter.get(`${PATH}`,
   ordersController.find
 );
 
+ordersRouter.delete(`${PATH}`, 
+  ordersController.deleteOrder
+);
+
 export default ordersRouter;

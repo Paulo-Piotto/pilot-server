@@ -88,6 +88,24 @@ async function find(searchSettings) {
   return result;
 }
 
+async function findById(id) {
+  const result = await client.orders.findUnique({
+     where: {
+       id: id,
+     },
+   })
+  return result;
+}
+
+async function deleteOrder(id){
+  const result = await client.orders.delete({
+    where: {
+      id: id,
+    },
+  })
+  return result;
+}
+
  export { 
-    create, findAll, findByInvoice, find
+    create, findAll, findByInvoice, find, deleteOrder, findById
  }

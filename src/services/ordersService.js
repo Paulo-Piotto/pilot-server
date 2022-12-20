@@ -50,5 +50,14 @@ async function find(searchSettings) {
   return result;
 }
 
-export { create, findAll, find };
+async function deleteOrder(deleteSettings) {
+  const doesntExists = await ordersRepository.findById(Number(deleteSettings.id));
+  if(!doesntExists){
+    throw { type: "not_found", message: "This order doesn't exists" };
+  }
+  const result = await ordersRepository.deleteOrder(Number(deleteSettings.id));
+  return result;
+}
+
+export { create, findAll, find, deleteOrder };
 
