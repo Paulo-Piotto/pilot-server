@@ -15,4 +15,8 @@ clientsRouter.get(`${PATH}`,
   clientsController.find
 );
 
+clientsRouter.delete(`${PATH}`,
+  clientsController.deleteClient
+);
+
 export default clientsRouter;

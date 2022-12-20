@@ -25,4 +25,13 @@ async function findAll() {
   return result;
 }
 
-export { create, find, findAll };
+async function deleteClient(deleteSettings) {
+  const doesntExists = await clientsRepository.findById(Number(deleteSettings.id));
+  if(!doesntExists){
+    throw { type: "not_found", message: "This client doesn't exists" };
+  }
+  const result = await clientsRepository.deleteClient(Number(deleteSettings.id));
+  return result;
+}
+
+export { create, find, findAll, deleteClient };
