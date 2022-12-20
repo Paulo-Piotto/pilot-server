@@ -15,4 +15,8 @@ employeesRouter.get(`${PATH}`,
 employeesController.find
 );
 
+employeesRouter.delete(`${PATH}`,
+employeesController.deleteEmployee
+);
+
 export default employeesRouter;
