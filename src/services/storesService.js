@@ -34,4 +34,13 @@ async function deleteStore(deleteSettings) {
   return result;
 }
 
-export { create, find, findAll, deleteStore };
+async function update(updateData) {
+  const doesntExists = await storesRepository.findById(Number(updateData.id));
+  if(!doesntExists){
+    throw { type: "not_found", message: "This client doesn't exists" };
+  }
+  const result = await storesRepository.update(updateData);
+  return result;
+}
+
+export { create, find, findAll, deleteStore, update };

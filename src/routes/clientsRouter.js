@@ -1,7 +1,7 @@
 import { Router } from "express";
 import * as clientsController from '../controllers/clientsController.js'
 import * as schemaValidationMiddleware from '../middlewares/schemaValidationMiddleware.js'
-import storeNClientSchema from "../schemas/storeNClientSchema.js";
+import {storeNClientSchema, updateStoreNClientSchema} from "../schemas/storeNClientSchema.js";
 
 const clientsRouter = Router();
 const PATH = "/clients";
@@ -17,6 +17,11 @@ clientsRouter.get(`${PATH}`,
 
 clientsRouter.delete(`${PATH}`,
   clientsController.deleteClient
+);
+
+clientsRouter.put(`${PATH}`,
+  (req, res, next) => schemaValidationMiddleware.test(req, res, next, updateStoreNClientSchema),
+  clientsController.update
 );
 
 export default clientsRouter;

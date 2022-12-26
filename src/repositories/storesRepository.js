@@ -43,4 +43,16 @@ async function findById(id) {
    return result;
  }
 
-export { create, find, findAll, findById, deleteStore };
+ async function update(updateData){
+  const updateStore = await client.stores.update({
+    where: {
+      id: updateData.id,
+    },
+    data: {
+      name: updateData.name
+    }
+  })
+  return updateStore;
+}
+
+export { create, find, findAll, findById, deleteStore, update };
