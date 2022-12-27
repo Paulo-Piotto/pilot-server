@@ -19,9 +19,6 @@ async function find(employeeName) {
 
 async function findAll() {
   const result = await employeesRepository.findAll();
-  if (!result[0]) {
-    throw { type: "not_found", message: "no records found" };
-  }
   return result;
 }
 

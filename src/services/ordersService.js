@@ -13,9 +13,6 @@ async function create(newOrder) {
 
 async function findAll() {
   const result = await ordersRepository.findAll();
-  if (!result[0]) {
-    throw { type: "not_found", message: "no records found" };
-  }
   return result;
 }
 
