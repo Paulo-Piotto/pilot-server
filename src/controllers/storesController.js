@@ -26,4 +26,11 @@ async function deleteStore(req, res){
   return res.status(200).send(result);
 }
 
-export { post, find, deleteStore};
+async function update(req, res){
+  const updateData = req.body;
+
+  const result = await storesService.update(updateData);
+  return res.status(200).send(result);
+}
+
+export { post, find, deleteStore, update};

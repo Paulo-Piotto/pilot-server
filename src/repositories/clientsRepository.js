@@ -43,4 +43,16 @@ async function findById(id) {
    return result;
  }
 
-export { create, find, findAll, findById, deleteClient };
+ async function update(updateData){
+  const updateClient = await client.clients.update({
+    where: {
+      id: updateData.id,
+    },
+    data: {
+      name: updateData.name
+    }
+  })
+  return updateClient;
+}
+
+export { create, find, findAll, findById, deleteClient, update };

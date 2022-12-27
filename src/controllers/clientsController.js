@@ -26,4 +26,11 @@ async function deleteClient(req, res){
   return res.status(200).send(result);
 }
 
-export { post, find, deleteClient };
+async function update(req, res){
+  const updateData = req.body;
+
+  const result = await clientsService.update(updateData);
+  return res.status(200).send(result);
+}
+
+export { post, find, deleteClient, update };
