@@ -77,6 +77,30 @@ async function getBalance(searchSettings) {
         }
       },
     },
+    where: {
+      OR: [
+        {
+          orders: {
+            some: {
+              date: {
+                gte: searchSettings.initialDate,
+                lte: searchSettings.endDate,
+              }
+            }
+          },
+        },
+        {
+          incomes: {
+            some: {
+              date: {
+                gte: searchSettings.initialDate,
+                lte: searchSettings.endDate,
+              }
+            }
+          }
+        }
+      ]
+    }
   })
   return result;
 }
