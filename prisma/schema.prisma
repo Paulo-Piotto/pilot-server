@@ -62,7 +62,7 @@ model users {
   name      String
   role_id   Int
   role      roles  @relation(fields: [role_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_role_id_foreign")
-  email     String
+  email     String @unique
   password  String
 }
 

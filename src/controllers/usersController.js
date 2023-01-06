@@ -7,6 +7,14 @@ async function registerNewUser(req, res) {
     return res.json(createdNewUser);
 }
 
+async function logUser(req, res) {
+    const userCredentials = req.body;
+
+    const userToken = await usersService.logUser(userCredentials);
+    return res.send(userToken);
+}
+
 export {
-    registerNewUser
+    registerNewUser,
+    logUser
 }
