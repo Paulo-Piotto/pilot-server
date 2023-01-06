@@ -40,4 +40,9 @@ async function update(updateData) {
   return result;
 }
 
-export { create, find, findAll, deleteClient, update };
+async function getBalance(searchSettings){
+  const result = await clientsRepository.getBalance(searchSettings);
+  return result;
+}
+
+export { create, find, findAll, deleteClient, update, getBalance };

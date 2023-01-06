@@ -28,9 +28,14 @@ async function deleteClient(req, res){
 
 async function update(req, res){
   const updateData = req.body;
-
   const result = await clientsService.update(updateData);
   return res.status(200).send(result);
 }
 
-export { post, find, deleteClient, update };
+async function getBalance(req, res){
+  const searchSettings = req.query;
+  const result = await clientsService.getBalance(searchSettings);
+  return res.status(200).send(result);
+}
+
+export { post, find, deleteClient, update, getBalance };
