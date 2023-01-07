@@ -11,10 +11,6 @@ ordersRouter.post(`${PATH}`,
   ordersController.post
 );
 
-ordersRouter.get(`${PATH}/all`,
-  ordersController.findAll
-);
-
 ordersRouter.get(`${PATH}`, 
   ordersController.find
 );

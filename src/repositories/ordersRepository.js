@@ -16,30 +16,6 @@ async function create(newOrder) {
    });
 }
 
-
-async function findAll() {
-    const result = await client.orders.findMany({
-      orderBy: [
-        {
-          date: 'desc',
-        }
-      ],
-        select: {
-            id: true,
-            invoice: true,
-            date: true,
-            stores: true,
-            clients: true,
-            value: true,
-            value_financed: true,
-            value_cash: true,
-            value_negotiated: true,
-
-        },
-    })
-    return result;
-}
-
 async function findByInvoice(orderInvoice) {
     const result = await client.orders.findMany({
        where: {
@@ -107,5 +83,5 @@ async function deleteOrder(id){
 }
 
  export { 
-    create, findAll, findByInvoice, find, deleteOrder, findById
+    create, findByInvoice, find, deleteOrder, findById
  }
