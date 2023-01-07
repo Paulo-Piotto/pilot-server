@@ -10,12 +10,6 @@ async function create(newOrder) {
   return result;
 }
 
-
-async function findAll() {
-  const result = await ordersRepository.findAll();
-  return result;
-}
-
 async function find(searchSettings) {
   const { error } = orderSearchSchema.validate(searchSettings);
 
@@ -41,9 +35,6 @@ async function find(searchSettings) {
   }
 
   const result = await ordersRepository.find(searchSettings);
-  if (!result[0]) {
-    throw { type: "not_found", message: "no records found" };
-  }
   return result;
 }
 
@@ -56,5 +47,5 @@ async function deleteOrder(deleteSettings) {
   return result;
 }
 
-export { create, findAll, find, deleteOrder };
+export { create, find, deleteOrder };
 
