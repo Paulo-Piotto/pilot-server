@@ -24,4 +24,8 @@ clientsRouter.put(`${PATH}`,
   clientsController.update
 );
 
+clientsRouter.get(`${PATH}/balance`,
+  clientsController.getBalance
+);
+
 export default clientsRouter;

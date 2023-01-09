@@ -55,4 +55,54 @@ async function findById(id) {
   return updateClient;
 }
 
-export { create, find, findAll, findById, deleteClient, update };
+async function getBalance(searchSettings) {
+  const result = await client.clients.findMany({
+    select: {
+      id: true,
+      name: true,
+      orders: {
+        where: {
+          date: {
+            gte: searchSettings.initialDate,
+            lte: searchSettings.endDate,
+          }
+        }
+      },
+      incomes: {
+        where: {
+          date: {
+            gte: searchSettings.initialDate,
+            lte: searchSettings.endDate,
+          }
+        }
+      },
+    },
+    where: {
+      OR: [
+        {
+          orders: {
+            some: {
+              date: {
+                gte: searchSettings.initialDate,
+                lte: searchSettings.endDate,
+              }
+            }
+          },
+        },
+        {
+          incomes: {
+            some: {
+              date: {
+                gte: searchSettings.initialDate,
+                lte: searchSettings.endDate,
+              }
+            }
+          }
+        }
+      ]
+    }
+  })
+  return result;
+}
+
+export { create, find, findAll, findById, deleteClient, update, getBalance };
