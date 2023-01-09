@@ -11,7 +11,7 @@ async function logUser(req, res) {
     const userCredentials = req.body;
 
     const userToken = await usersService.logUser(userCredentials);
-    return res.send(userToken);
+    return res.json({ token: userToken });
 }
 
 export {
