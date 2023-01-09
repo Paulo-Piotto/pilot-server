@@ -12,6 +12,7 @@ model clients {
   name                  String                  @unique
   employees_worked_days employees_worked_days[]
   orders                orders[]
+  incomes               incomes[]
 }
 
 model employees {
@@ -44,6 +45,15 @@ model orders {
   clients          clients  @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "orders_client_id_foreign")
   stores           stores   @relation(fields: [store_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "orders_store_id_foreign")
 }
+
+model incomes {
+  id               Int      @id @default(autoincrement())
+  name          String
+  date             DateTime @default(now())
+  client_id        Int
+  value            Int
+  clients          clients  @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "orders_client_id_foreign")
+  }
 
 model stores {
   id     Int      @id @default(autoincrement())
