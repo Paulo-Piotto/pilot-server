@@ -19,7 +19,7 @@ model employees {
   id                    Int                     @id @default(autoincrement())
   name                  String                  @unique
   wage                  Int
-  start_day             DateTime               
+  start_day             DateTime
   employees_worked_days employees_worked_days[]
 }
 
@@ -27,7 +27,7 @@ model employees_worked_days {
   id          Int       @id @default(autoincrement())
   employee_id Int
   client_id   Int
-  date        DateTime  @default(now()) 
+  date        DateTime  @default(now())
   clients     clients   @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "employees_worked_days_client_id_foreign")
   employees   employees @relation(fields: [employee_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "employees_worked_days_employee_id_foreign")
 }
@@ -60,3 +60,20 @@ model stores {
   name   String   @unique
   orders orders[]
 }
+
+model roles {
+  id    Int     @id @default(autoincrement())
+  name  String
+  users users[]
+}
+
+model users {
+  id        Int    @id @default(autoincrement())
+  name      String
+  role_id   Int
+  role      roles  @relation(fields: [role_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_role_id_foreign")
+  email     String @unique
+  password  String
+}
+
+

@@ -1,5 +1,6 @@
 export function errorHandler(error,req,res,next) {
   const { message, type } = error;
+
   console.log(error)
   if (type === "conflict") {
     return res.status(409).send(message ? message : "Conflict");
@@ -12,6 +13,9 @@ export function errorHandler(error,req,res,next) {
   }
   if (type === "unprocessable_entity") {
     return res.status(422).send(message ? message : "Unprocessable entity");
+  }
+  if (type === "internal_server_error") {
+    return res.status(500).send(message ? message : "Internal server error");
   }
   res.sendStatus(500);
 }
