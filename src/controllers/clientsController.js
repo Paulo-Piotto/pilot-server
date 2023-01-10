@@ -6,12 +6,12 @@ async function post(req, res) {
 }
 
 async function find(req, res) {
-  const name = req.query.name
-  if(name){
-    const result = await clientsService.find(name);
+  const searchSettings = req.query
+  if(searchSettings.name || searchSettings.initialDate && searchSettings.endDate){
+    const result = await clientsService.find(searchSettings);
     return res.status(200).send(result);
   }
-  const result = await clientsService.findAll();
+  const result = await clientsService.find({name: ''});
   return res.status(200).send(result);
 }
 

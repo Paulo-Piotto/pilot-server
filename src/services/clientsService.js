@@ -9,16 +9,11 @@ async function create(newClient) {
   return result;
 }
 
-async function find(clientName) {
-  const result = await clientsRepository.find(clientName);
+async function find(searchSettings) {
+  const result = await clientsRepository.find(searchSettings);
   if (!result[0]) {
     throw { type: "not_found", message: "client not found" };
   }
-  return result;
-}
-
-async function findAll() {
-  const result = await clientsRepository.findAll();
   return result;
 }
 
@@ -45,4 +40,4 @@ async function getBalance(searchSettings){
   return result;
 }
 
-export { create, find, findAll, deleteClient, update, getBalance };
+export { create, find, deleteClient, update, getBalance };

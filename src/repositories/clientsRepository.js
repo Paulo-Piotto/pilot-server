@@ -8,20 +8,35 @@ async function create(newClient) {
    });
 }
 
-async function find(clientName) {
+async function find(searchSettings) {
    const result = await client.clients.findMany({
+      select: {
+      id: true,
+      name: true,
+      orders: {
+        where: {
+          date: {
+            gte: searchSettings.initialDate,
+            lte: searchSettings.endDate,
+          }
+        }
+      },
+      incomes: {
+        where: {
+          date: {
+            gte: searchSettings.initialDate,
+            lte: searchSettings.endDate,
+          }
+        }
+      },
+    },
       where: {
         name: {
-         contains: clientName,
+         contains: searchSettings.name,
          mode: 'insensitive',
         },
       },
     })
-   return result;
-}
-
-async function findAll() {
-   const result = await client.clients.findMany()
    return result;
 }
 
@@ -77,32 +92,8 @@ async function getBalance(searchSettings) {
         }
       },
     },
-    where: {
-      OR: [
-        {
-          orders: {
-            some: {
-              date: {
-                gte: searchSettings.initialDate,
-                lte: searchSettings.endDate,
-              }
-            }
-          },
-        },
-        {
-          incomes: {
-            some: {
-              date: {
-                gte: searchSettings.initialDate,
-                lte: searchSettings.endDate,
-              }
-            }
-          }
-        }
-      ]
-    }
   })
   return result;
 }
 
-export { create, find, findAll, findById, deleteClient, update, getBalance };
+export { create, find, findById, deleteClient, update, getBalance };
