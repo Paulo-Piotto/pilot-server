@@ -1,7 +1,7 @@
 import * as clientsRepository from '../repositories/clientsRepository.js';
 
 async function create(newClient) {
-  const alreadyExists = await clientsRepository.find(newClient.name);
+  const alreadyExists = await clientsRepository.find(newClient);
   if(alreadyExists[0]){
     throw { type: "conflict", message: "This client already exists" };
   }
