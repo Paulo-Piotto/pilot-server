@@ -15,4 +15,5 @@ usersRouter.post(`${PATH}/login`,
     (req, res, next) => schemaValidationMiddleware.test(req, res, next, usersSchemas.loginCredentials),
     usersController.logUser
 )
+
 export default usersRouter;

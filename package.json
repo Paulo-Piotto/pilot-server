@@ -1,14 +1,18 @@
 {
   "name": "pilot-back",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx nodemon ./src/server.js",
     "build": "npx prisma generate && npx prisma migrate deploy",
-    "start": "sudo forever start ./src/server.js"
+    "start": "sudo forever start ./src/server.js",
+    "seed": "npx prisma db seed"
   },
   "keywords": [],
   "author": "",

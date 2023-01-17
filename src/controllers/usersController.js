@@ -4,7 +4,7 @@ async function registerNewUser(req, res) {
     const newUserData = req.body;
 
     const createdNewUser = await usersService.createNewUser(newUserData);
-    return res.json(createdNewUser);
+    return res.status(201).json(createdNewUser);
 }
 
 async function logUser(req, res) {
