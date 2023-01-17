@@ -24,56 +24,56 @@ model employees {
 }
 
 model employees_worked_days {
-  id          Int       @id @default(autoincrement())
-  employee_id Int
-  client_id   Int
-  date        DateTime  @default(now())
-  clients     clients   @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "employees_worked_days_client_id_foreign")
-  employees   employees @relation(fields: [employee_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "employees_worked_days_employee_id_foreign")
+  id                    Int                     @id @default(autoincrement())
+  employee_id           Int             
+  client_id             Int             
+  date                  DateTime                @default(now())
+  clients               clients                 @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "employees_worked_days_client_id_foreign")
+  employees             employees               @relation(fields: [employee_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "employees_worked_days_employee_id_foreign")
 }
 
 model orders {
-  id               Int      @id @default(autoincrement())
-  invoice          String
-  date             DateTime @default(now())
-  store_id         Int
-  client_id        Int
-  value            Int
-  value_negotiated Int?
-  value_cash       Int
-  value_financed   Int
-  clients          clients  @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "orders_client_id_foreign")
-  stores           stores   @relation(fields: [store_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "orders_store_id_foreign")
+  id                    Int                     @id @default(autoincrement())
+  invoice               String              
+  date                  DateTime                @default(now())
+  store_id              Int             
+  client_id             Int             
+  value                 Int             
+  value_negotiated      Int?            
+  value_cash            Int             
+  value_financed        Int             
+  clients               clients                 @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "orders_client_id_foreign")
+  stores                stores                  @relation(fields: [store_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "orders_store_id_foreign")
 }
 
 model incomes {
-  id               Int      @id @default(autoincrement())
-  name          String
-  date             DateTime @default(now())
-  client_id        Int
-  value            Int
-  clients          clients  @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "orders_client_id_foreign")
+  id                    Int                     @id @default(autoincrement())
+  name                  String             
+  date                  DateTime                @default(now())
+  client_id             Int             
+  value                 Int             
+  clients               clients                 @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "orders_client_id_foreign")
   }
 
 model stores {
-  id     Int      @id @default(autoincrement())
-  name   String   @unique
-  orders orders[]
+  id                    Int                     @id @default(autoincrement())
+  name                  String                  @unique
+  orders                orders[]
 }
 
 model roles {
-  id    Int     @id @default(autoincrement())
-  name  String
-  users users[]
+  id                    Int                     @id @default(autoincrement())
+  name                  String
+  users                 users[]
 }
 
 model users {
-  id        Int    @id @default(autoincrement())
-  name      String
-  role_id   Int
-  role      roles  @relation(fields: [role_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_role_id_foreign")
-  email     String @unique
-  password  String
+  id                    Int                     @id @default(autoincrement())
+  name                  String                  
+  role                  roles                   @relation(fields: [role_id], references: [id])
+  role_id               Int                 
+  email                 String                  @unique
+  password              String
 }
 
 
