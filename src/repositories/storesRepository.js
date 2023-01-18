@@ -3,7 +3,8 @@ import client from "../database.js";
 async function create(newStore) {
    const result = await client.stores.create({
      data: {
-      name: newStore.name
+      name: newStore.name,
+      author: newStore.author,
      }
    });
 }
@@ -49,7 +50,8 @@ async function findById(id) {
       id: updateData.id,
     },
     data: {
-      name: updateData.name
+      name: updateData.name,
+      author: updateData.author,
     }
   })
   return updateStore;

@@ -3,7 +3,8 @@ import client from "../database.js";
 async function create(newClient) {
    const result = await client.clients.create({
      data: {
-      name: newClient.name
+      name: newClient.name,
+      author: newClient.author
      }
    });
 }
@@ -13,6 +14,7 @@ async function find(searchSettings) {
       select: {
       id: true,
       name: true,
+      author: true,
       orders: {
         where: {
           date: {
@@ -64,7 +66,8 @@ async function findById(id) {
       id: updateData.id,
     },
     data: {
-      name: updateData.name
+      name: updateData.name,
+      author: updateData.author
     }
   })
   return updateClient;
@@ -75,6 +78,7 @@ async function getBalance(searchSettings) {
     select: {
       id: true,
       name: true,
+      author: true,
       orders: {
         where: {
           date: {
