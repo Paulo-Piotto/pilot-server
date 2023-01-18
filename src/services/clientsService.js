@@ -10,6 +10,7 @@ async function create(newClient) {
 }
 
 async function find(searchSettings) {
+  searchSettings.includeArchived === 'false' ? searchSettings.includeArchived = false : searchSettings.includeArchived = true
   const result = await clientsRepository.find(searchSettings);
   if (!result[0]) {
     throw { type: "not_found", message: "client not found" };

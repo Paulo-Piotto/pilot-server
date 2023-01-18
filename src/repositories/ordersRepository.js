@@ -12,6 +12,7 @@ async function create(newOrder) {
       value_negotiated: newOrder.negotiated,
       value_cash: newOrder.cash,
       value_financed: newOrder.financed,
+      author: newOrder.author,
      }
    });
 }
@@ -45,6 +46,7 @@ async function find(searchSettings) {
       value_financed: true,
       value_cash: true,
       value_negotiated: true,
+      author: true,
     },
     where: {
       date: {

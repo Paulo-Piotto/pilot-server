@@ -7,7 +7,7 @@ async function post(req, res) {
 
 async function find(req, res) {
   const searchSettings = req.query
-  if(searchSettings.name || searchSettings.initialDate && searchSettings.endDate){
+  if(searchSettings.name || searchSettings.initialDate && searchSettings.endDate || searchSettings.includeArchived){
     const result = await clientsService.find(searchSettings);
     return res.status(200).send(result);
   }

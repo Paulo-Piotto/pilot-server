@@ -5,6 +5,7 @@ const incomesSchema =Joi.object({
     date: Joi.date().required(),
     client: Joi.number().required(),
     value: Joi.number().required(),
+    author: Joi.string().required(),
 })
 
 export default incomesSchema;
