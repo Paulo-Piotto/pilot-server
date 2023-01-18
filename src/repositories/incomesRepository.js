@@ -7,6 +7,7 @@ async function create(newIncome) {
       date: newIncome.date,
       client_id: newIncome.client,
       value: newIncome.value,
+      author: newIncome.author,
      }
    });
 }
@@ -36,6 +37,7 @@ async function find(searchSettings) {
       date: true,
       clients: true,
       value: true,
+      author: true,
     },
     where: {
       date: {

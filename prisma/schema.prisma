@@ -10,6 +10,7 @@ datasource db {
 model clients {
   id                    Int                     @id @default(autoincrement())
   name                  String                  @unique
+  author                String?
   employees_worked_days employees_worked_days[]
   orders                orders[]
   incomes               incomes[]
@@ -20,6 +21,7 @@ model employees {
   name                  String                  @unique
   wage                  Int
   start_day             DateTime
+  author                String?
   employees_worked_days employees_worked_days[]
 }
 
@@ -41,7 +43,8 @@ model orders {
   value                 Int             
   value_negotiated      Int?            
   value_cash            Int             
-  value_financed        Int             
+  value_financed        Int  
+  author                String?           
   clients               clients                 @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "orders_client_id_foreign")
   stores                stores                  @relation(fields: [store_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "orders_store_id_foreign")
 }
@@ -51,13 +54,15 @@ model incomes {
   name                  String             
   date                  DateTime                @default(now())
   client_id             Int             
-  value                 Int             
+  value                 Int  
+  author                String?           
   clients               clients                 @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "orders_client_id_foreign")
   }
 
 model stores {
   id                    Int                     @id @default(autoincrement())
   name                  String                  @unique
+  author                String?
   orders                orders[]
 }
 

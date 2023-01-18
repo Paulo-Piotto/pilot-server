@@ -1,12 +1,12 @@
 import client from "../database.js";
 
 async function create(newEmployee) {
-   const currentDate = new Date().toISOString();
    const result = await client.employees.create({
      data: {
       name: newEmployee.name,
       wage: newEmployee.wage,
-      start_day: currentDate
+      start_day: newEmployee.startDay,
+      author: newEmployee.author
      }
    });
 }

@@ -9,6 +9,7 @@ const ordersSchema =Joi.object({
     negotiated: Joi.any(),
     cash: Joi.number().required(),
     financed: Joi.number().required(),
+    author: Joi.string().required(),
 })
 
 export default ordersSchema;
