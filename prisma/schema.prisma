@@ -11,6 +11,7 @@ model clients {
   id                    Int                     @id @default(autoincrement())
   name                  String                  @unique
   author                String?
+  isArchived            Boolean                 @default(false)
   employees_worked_days employees_worked_days[]
   orders                orders[]
   incomes               incomes[]

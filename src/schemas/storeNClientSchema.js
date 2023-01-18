@@ -9,6 +9,7 @@ const updateStoreNClientSchema = Joi.object({
     id: Joi.number().min(1).required(),
     name: Joi.string().min(3).required(),
     author: Joi.string().required(),
+    isArchived: Joi.boolean(),
 })
 
 export  { storeNClientSchema, updateStoreNClientSchema};

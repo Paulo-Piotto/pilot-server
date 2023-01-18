@@ -15,6 +15,7 @@ async function find(searchSettings) {
       id: true,
       name: true,
       author: true,
+      isArchived: true,
       orders: {
         where: {
           date: {
@@ -37,6 +38,14 @@ async function find(searchSettings) {
          contains: searchSettings.name,
          mode: 'insensitive',
         },
+        OR: [
+          {
+            isArchived: false,
+          },
+          {
+            isArchived: Boolean(searchSettings.includeArchived)
+          }
+        ]
       },
     })
    return result;
@@ -67,7 +76,8 @@ async function findById(id) {
     },
     data: {
       name: updateData.name,
-      author: updateData.author
+      author: updateData.author,
+      isArchived: updateData.isArchived || false
     }
   })
   return updateClient;
@@ -79,6 +89,7 @@ async function getBalance(searchSettings) {
       id: true,
       name: true,
       author: true,
+      isArchived: true,
       orders: {
         where: {
           date: {
@@ -96,6 +107,9 @@ async function getBalance(searchSettings) {
         }
       },
     },
+    where: {
+      isArchived: false,
+    }
   })
   return result;
 }
