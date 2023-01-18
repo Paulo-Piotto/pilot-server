@@ -17,7 +17,8 @@ async function create(newUser) {
 
 async function findAlreadyRegisteredEmail(userEmail) {
     const foundUser = await client.users.findUnique({
-        where: { email: userEmail }
+        where: { email: userEmail },
+        include: { role:  true }
     })
 
     return foundUser;
