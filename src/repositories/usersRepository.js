@@ -24,7 +24,33 @@ async function findAlreadyRegisteredEmail(userEmail) {
     return foundUser;
 }
 
+async function getUserRoleById(userId) {
+    const userRole = await client.users.findUnique({
+        where: { id: userId },
+        select: {
+            role: true
+        }
+    })
+
+    return userRole.role.name
+}
+
+async function getAllUsersData() {
+    const allUsersData = await client.users.findMany({
+        include: {
+            role: {
+                select: {
+                    name: true
+                }
+            }
+        }
+    })
+    return allUsersData;
+}
+
 export {
     create,
-    findAlreadyRegisteredEmail
+    findAlreadyRegisteredEmail,
+    getUserRoleById,
+    getAllUsersData
 }

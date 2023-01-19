@@ -25,13 +25,32 @@ async function logUser(credentials) {
     const jwtData = {
         name: registeredUser.name,
         email: registeredUser.email,
-        role: registeredUser.role.name
+        role: registeredUser.role.name,
+        id: registeredUser.id
     }
     const userToken = jwt.sign(jwtData, process.env.SERVER_SECRET);
     return userToken;
 }
 
+async function getAllUsersData() {
+    console.log("Entered User Service")
+    const allUsersData = await usersRepository.getAllUsersData();
+
+    const filteredAllUsersData = allUsersData.map(userData => {
+        delete userData["role_id"]
+        delete userData["password"]
+        return {
+            ...userData,
+            role: userData.role.name
+        }
+    })
+    console.log("ALL USERS DATA: ")
+    console.log(filteredAllUsersData)
+    return filteredAllUsersData;
+}
+
 export {
     createNewUser,
-    logUser
+    logUser,
+    getAllUsersData
 }
