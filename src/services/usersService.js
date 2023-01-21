@@ -21,7 +21,6 @@ async function logUser(credentials) {
     const verifyPassword = await bcrypt.compare(credentials.password, registeredUser.password);
     if(!verifyPassword) throw { type: "unauthorized", message: "The credentials provided does not match" }
 
-    console.log(registeredUser)
     const jwtData = {
         name: registeredUser.name,
         email: registeredUser.email,
@@ -33,9 +32,7 @@ async function logUser(credentials) {
 }
 
 async function getAllUsersData() {
-    console.log("Entered User Service")
     const allUsersData = await usersRepository.getAllUsersData();
-
     const filteredAllUsersData = allUsersData.map(userData => {
         delete userData["role_id"]
         delete userData["password"]
@@ -44,13 +41,25 @@ async function getAllUsersData() {
             role: userData.role.name
         }
     })
-    console.log("ALL USERS DATA: ")
-    console.log(filteredAllUsersData)
+
     return filteredAllUsersData;
+}
+
+async function updateUserData(newUserData) {
+    const updatedUserData = await usersRepository.updateUserByUserId(newUserData);
+    if(!updatedUserData) throw { type: "not_found", message: "This user does not exist" }
+
+    delete updatedUserData["role_id"]
+    delete updatedUserData["password"]
+    return {
+        ...updatedUserData,
+        role: updatedUserData.role.name
+    }
 }
 
 export {
     createNewUser,
     logUser,
-    getAllUsersData
+    getAllUsersData,
+    updateUserData
 }

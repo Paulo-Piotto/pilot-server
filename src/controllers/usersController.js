@@ -19,8 +19,14 @@ async function getALlSystemUsersData(req, res) {
     return res.send(allUsersDataFound)
 }
 
+async function updateUser(req, res) {
+    const updatedUser = await usersService.updateUserData(req.body);
+    return res.status(200).json(updatedUser);
+}
+
 export {
     registerNewUser,
     logUser,
-    getALlSystemUsersData
+    getALlSystemUsersData,
+    updateUser
 }
