@@ -21,7 +21,6 @@ async function logUser(credentials) {
     const verifyPassword = await bcrypt.compare(credentials.password, registeredUser.password);
     if(!verifyPassword) throw { type: "unauthorized", message: "The credentials provided does not match" }
 
-    console.log(registeredUser)
     const jwtData = {
         name: registeredUser.name,
         email: registeredUser.email,
