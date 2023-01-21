@@ -47,6 +47,9 @@ async function find(searchSettings) {
       client_id: {
         gte: searchSettings.clientMin,
         lte: searchSettings.clientMax,
+      },
+      clients: {
+        isArchived: false
       }
     }
   })
