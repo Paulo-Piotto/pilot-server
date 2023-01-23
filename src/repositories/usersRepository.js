@@ -1,14 +1,16 @@
 import client from "../database.js";
 
 async function create(newUser) {
-    const { roleId: role_id, name, email, password } = newUser;
-
+    const { roleName, name, email, password } = newUser;
+    console.log(newUser)
     const createdUser = await client.users.create({
         data: {
-            role_id,
             name,
             email,
-            password
+            password,
+            role: {
+                connect: { name: roleName }
+            }
         }
     });
 
