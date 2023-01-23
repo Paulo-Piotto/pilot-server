@@ -11,7 +11,6 @@ export default async function permissionsVerifierMiddleware(req, res, next, leve
     catch(error) { throw { type: "unauthorized", message: "Could not authenticate incoming user token" }}
 
     const verifiedUserRole = await getUserRoleByUserId(decodedUserData.id)
-    console.log("VerifiedUserRole: ", verifiedUserRole)
     if(Config.rolesLevel[verifiedUserRole] < Config.rolesLevel[levelOfPermission]) throw {
         type: "unauthorized",
         message: "You have not enough privileges to access this resource"
