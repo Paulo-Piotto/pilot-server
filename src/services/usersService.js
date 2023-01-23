@@ -27,6 +27,7 @@ async function logUser(credentials) {
         role: registeredUser.role.name,
         id: registeredUser.id
     }
+
     const userToken = jwt.sign(jwtData, process.env.SERVER_SECRET);
     return userToken;
 }
