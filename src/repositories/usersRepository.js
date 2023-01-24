@@ -2,7 +2,7 @@ import client from "../database.js";
 
 async function create(newUser) {
     const { roleName, name, email, password } = newUser;
-    console.log(newUser)
+
     const createdUser = await client.users.create({
         data: {
             name,
@@ -26,7 +26,52 @@ async function findAlreadyRegisteredEmail(userEmail) {
     return foundUser;
 }
 
+async function getUserRoleByUserId(userId) {
+    const userRole = await client.users.findUnique({
+        where: { id: userId },
+        select: {
+            role: true
+        }
+    })
+
+    return userRole.role.name
+}
+
+async function getAllUsersData() {
+    const allUsersData = await client.users.findMany({
+        include: {
+            role: {
+                select: { name: true }
+            }
+        }
+    })
+    return allUsersData;
+}
+
+async function updateUserByUserId(newUserData) {
+    const { id, name, role, email } = newUserData;
+    const updatedUser = await client.users.update({
+        where: { id },
+        data: {
+            name,
+            email,
+            role: {
+                connect: { name: role }
+            }
+        },
+        include: {
+            role: {
+                select: { name: true }
+            }
+        }
+    })
+    return updatedUser;
+}
+
 export {
     create,
-    findAlreadyRegisteredEmail
+    findAlreadyRegisteredEmail,
+    getUserRoleByUserId,
+    getAllUsersData,
+    updateUserByUserId
 }

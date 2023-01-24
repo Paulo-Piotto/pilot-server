@@ -12,7 +12,15 @@ const loginCredentials = Joi.object({
     password: Joi.string().min(4).required()
 })
 
+const updateUserData = Joi.object({
+    id: Joi.number().required(),
+    name: Joi.string().min(4).required(),
+    email: Joi.string().email({ tlds: { allow: false } }).required(),
+    role: Joi.string().required()
+})
+
 export {
     loginCredentials,
-    register
+    register,
+    updateUserData
 }

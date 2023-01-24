@@ -14,7 +14,19 @@ async function logUser(req, res) {
     return res.json({ token: userToken });
 }
 
+async function getALlSystemUsersData(req, res) {
+    const allUsersDataFound = await usersService.getAllUsersData();
+    return res.send(allUsersDataFound)
+}
+
+async function updateUser(req, res) {
+    const updatedUser = await usersService.updateUserData(req.body);
+    return res.status(200).json(updatedUser);
+}
+
 export {
     registerNewUser,
-    logUser
+    logUser,
+    getALlSystemUsersData,
+    updateUser
 }

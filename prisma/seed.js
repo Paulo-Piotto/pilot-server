@@ -4,6 +4,7 @@ const prisma = new PrismaClient()
 async function main() {
     const seedRoleTypes = await prisma.roles.createMany({
         data: [
+            { name: "new" },
             { name: "basic" },
             { name: "root" },
             { name: "admin" }

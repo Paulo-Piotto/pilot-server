@@ -24,13 +24,43 @@ async function logUser(credentials) {
     const jwtData = {
         name: registeredUser.name,
         email: registeredUser.email,
-        role: registeredUser.role.name
+        role: registeredUser.role.name,
+        id: registeredUser.id
     }
+
     const userToken = jwt.sign(jwtData, process.env.SERVER_SECRET);
     return userToken;
 }
 
+async function getAllUsersData() {
+    const allUsersData = await usersRepository.getAllUsersData();
+    const filteredAllUsersData = allUsersData.map(userData => {
+        delete userData["role_id"]
+        delete userData["password"]
+        return {
+            ...userData,
+            role: userData.role.name
+        }
+    })
+
+    return filteredAllUsersData;
+}
+
+async function updateUserData(newUserData) {
+    const updatedUserData = await usersRepository.updateUserByUserId(newUserData);
+    if(!updatedUserData) throw { type: "not_found", message: "This user does not exist" }
+
+    delete updatedUserData["role_id"]
+    delete updatedUserData["password"]
+    return {
+        ...updatedUserData,
+        role: updatedUserData.role.name
+    }
+}
+
 export {
     createNewUser,
-    logUser
+    logUser,
+    getAllUsersData,
+    updateUserData
 }
