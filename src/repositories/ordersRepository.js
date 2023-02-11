@@ -1,9 +1,8 @@
 import client from "../database.js";
 
 async function create(newOrder) {
-
-   const result = await client.orders.create({
-     data: {
+  const result = await client.orders.create({
+    data: {
       invoice: newOrder.invoice,
       date: newOrder.date,
       store_id: newOrder.store,
@@ -13,28 +12,28 @@ async function create(newOrder) {
       value_cash: newOrder.cash,
       value_financed: newOrder.financed,
       author: newOrder.author,
-     }
-   });
+    },
+  });
 }
 
 async function findByInvoice(orderInvoice) {
-    const result = await client.orders.findMany({
-       where: {
-         invoice: {
-          contains: orderInvoice,
-          mode: 'insensitive',
-         },
-       },
-     })
-    return result;
- }
+  const result = await client.orders.findMany({
+    where: {
+      invoice: {
+        contains: orderInvoice,
+        mode: "insensitive",
+      },
+    },
+  });
+  return result;
+}
 
 async function find(searchSettings) {
   const result = await client.orders.findMany({
     orderBy: [
       {
-        date: 'desc',
-      }
+        date: "desc",
+      },
     ],
     select: {
       id: true,
@@ -62,31 +61,49 @@ async function find(searchSettings) {
         lte: searchSettings.clientMax,
       },
       clients: {
-        isArchived: false
-      }
-    }
-  })
+        isArchived: false,
+      },
+    },
+  });
   return result;
 }
 
 async function findById(id) {
   const result = await client.orders.findUnique({
-     where: {
-       id: id,
-     },
-   })
+    where: {
+      id: id,
+    },
+  });
   return result;
 }
 
-async function deleteOrder(id){
+async function deleteOrder(id) {
   const result = await client.orders.delete({
     where: {
       id: id,
     },
-  })
+  });
   return result;
 }
 
- export { 
-    create, findByInvoice, find, deleteOrder, findById
- }
+async function update(updateData) {
+  const updateOrder = await client.orders.update({
+    where: {
+      id: updateData.id,
+    },
+    data: {
+      invoice: updateData.invoice,
+      date: updateData.date,
+      store_id: updateData.store,
+      client_id: updateData.client,
+      value: updateData.value,
+      value_negotiated: updateData.negotiated,
+      value_cash: updateData.cash,
+      value_financed: updateData.financed,
+      author: updateData.author,
+    },
+  });
+  return updateOrder;
+}
+
+export { create, findByInvoice, find, deleteOrder, findById, update };
