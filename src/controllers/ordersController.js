@@ -1,21 +1,21 @@
-import * as ordersService from "../services/ordersService.js"
+import * as ordersService from "../services/ordersService.js";
 
 async function post(req, res) {
   const result = await ordersService.create(req.body);
   return res.status(201).send(result);
 }
 
-async function find(req, res){
+async function find(req, res) {
   const searchSettings = req.query;
 
   const result = await ordersService.find(searchSettings);
   return res.status(200).send(result);
 }
 
-async function deleteOrder(req, res){
+async function deleteOrder(req, res) {
   const deleteSettings = req.query;
 
-  if(!deleteSettings.id){
+  if (!deleteSettings.id) {
     throw { type: "unprocessable_entity", message: "ID is missing" };
   }
 
@@ -23,4 +23,9 @@ async function deleteOrder(req, res){
   return res.status(200).send(result);
 }
 
-export { post, find, deleteOrder };
+async function update(req, res) {
+  const result = await ordersService.update(req.body);
+  return res.status(201).send(result);
+}
+
+export { post, find, deleteOrder, update };

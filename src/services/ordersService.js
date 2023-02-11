@@ -1,9 +1,9 @@
-import * as ordersRepository from "../repositories/ordersRepository.js"
+import * as ordersRepository from "../repositories/ordersRepository.js";
 import orderSearchSchema from "../schemas/orderSearchSchema.js";
 
 async function create(newOrder) {
   const alreadyExists = await ordersRepository.findByInvoice(newOrder.invoice);
-  if(alreadyExists[0]){
+  if (alreadyExists[0]) {
     throw { type: "conflict", message: "This order already exists" };
   }
   const result = await ordersRepository.create(newOrder);
@@ -13,23 +13,23 @@ async function create(newOrder) {
 async function find(searchSettings) {
   const { error } = orderSearchSchema.validate(searchSettings);
 
-  if(error){
+  if (error) {
     const { message } = error.details[0];
     throw { type: "unprocessable_entity", message };
   }
 
-  if(searchSettings.store && searchSettings.store !== '0'){
+  if (searchSettings.store && searchSettings.store !== "0") {
     searchSettings.storeMin = Number(searchSettings.store);
     searchSettings.storeMax = Number(searchSettings.store);
-  }else{
+  } else {
     searchSettings.storeMin = 0;
     searchSettings.storeMax = 10000000;
   }
 
-  if(searchSettings.client && searchSettings.client !== '0'){
+  if (searchSettings.client && searchSettings.client !== "0") {
     searchSettings.clientMin = Number(searchSettings.client);
     searchSettings.clientMax = Number(searchSettings.client);
-  }else{
+  } else {
     searchSettings.clientMin = 0;
     searchSettings.clientMax = 10000000;
   }
@@ -39,13 +39,23 @@ async function find(searchSettings) {
 }
 
 async function deleteOrder(deleteSettings) {
-  const doesntExists = await ordersRepository.findById(Number(deleteSettings.id));
-  if(!doesntExists){
+  const doesntExists = await ordersRepository.findById(
+    Number(deleteSettings.id)
+  );
+  if (!doesntExists) {
     throw { type: "not_found", message: "This order doesn't exists" };
   }
   const result = await ordersRepository.deleteOrder(Number(deleteSettings.id));
   return result;
 }
 
-export { create, find, deleteOrder };
+async function update(updateOrder) {
+  const doesntExists = await ordersRepository.findById(updateOrder.id);
+  if (!doesntExists) {
+    throw { type: "not_found", message: "This order doesn't exists" };
+  }
+  const result = await ordersRepository.update(updateOrder);
+  return result;
+}
 
+export { create, find, deleteOrder, update };
