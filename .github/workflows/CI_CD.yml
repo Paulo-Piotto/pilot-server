@@ -19,4 +19,4 @@ jobs:
 
         run: |
           echo "$PRIVATE_KEY" > piottoArq-key.pem && chmod 600 piottoArq-key.pem
-          ssh -o StrictHostKeyChecking=no -i piottoArq-key.pem ${USER_NAME}@${HOSTNAME}
+          ssh -i "piottoArq-key.pem" ${USER_NAME}@${HOSTNAME}
