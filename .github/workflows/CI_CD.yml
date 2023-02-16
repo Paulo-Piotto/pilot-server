@@ -1,6 +1,5 @@
 name: Push-to-EC2
 
-# Trigger deployment only on push to master branch
 on:
   push:
     branches:
@@ -8,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    name: Deploy to EC2 on master branch push
+    name: Deploy to EC2
     runs-on: ubuntu-latest
 
     steps:
@@ -22,4 +21,4 @@ jobs:
           REMOTE_HOST: ${{ secrets.HOSTNAME }}
           REMOTE_USER: ${{ secrets.USERNAME }}
           TARGET: "./CICD-test"
-          SCRIPT_AFTER: "touch xablau.txt"
+          SCRIPT_AFTER: "cd CICD-test && touch xablau.txt"
