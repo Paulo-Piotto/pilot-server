@@ -5,14 +5,18 @@ on:
     branches: [CICD]
 
 jobs:
+  #First we will see the application build or not , then we will deploy in EC2
   Deploy:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
-      - name: Access to EC2
-        uses: appleboy/ssh-action@v0.1.7
-        with:
-          host: ${{ secrets.HOSTNAME}}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.AWS_PRIVATE_KEY }}
-          script: whoami
+      - name: Deploy in EC2
+        env:
+          PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
+          HOSTNAME: ${{ secrets.HOSTNAME  }}
+          USER_NAME: ${{ secrets.USER_NAME  }}
+
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ls
