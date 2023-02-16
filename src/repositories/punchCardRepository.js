@@ -25,16 +25,7 @@ async function getAllPunchCardsData() {
 
 async function getPunchCardsByClients(filter) {
     const punchCardsByClients = await client.clients.findMany({
-        where: {
-            employees_worked_days: {
-                some: {
-                    date: {
-                        gte: filter.date?.from ?? new Date("1970").toISOString(),
-                        lte: filter.date?.to ?? new Date().toISOString()
-                    }
-                }
-            }
-        },
+        ...filter,
         select: {
             id: true,
             name: true,
@@ -48,28 +39,9 @@ async function getPunchCardsByClients(filter) {
     return punchCardsByClients;
 }
 
-async function gerPunchCardsByEmployees(filter) {
-    function whereClauseFactory() {
-        let dateFilter = { date: {} }
-        let clientFilter = {}
-
-        if(filter.client) clientFilter = {
-            clients: { name: filter.client },
-        }
-        if(filter.date?.from) dateFilter.date.gte = filter.date.from
-        if(filter.date?.to) dateFilter.date.lte = filter.date.to
-
-        return {
-            where: {
-                employees_worked_days: {
-                    some: { ...dateFilter, ...clientFilter }
-                }
-            }
-        }
-    }
-
+async function getPunchCardsByEmployees(filter) {
     const punchCardByEmployees = await client.employees.findMany({
-        ...(whereClauseFactory()),
+        ...filter,
         select: {
             id: true,
             name: true,
@@ -95,5 +67,5 @@ async function gerPunchCardsByEmployees(filter) {
 export {
     getAllPunchCardsData,
     getPunchCardsByClients,
-    gerPunchCardsByEmployees
+    getPunchCardsByEmployees
 }
