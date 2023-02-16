@@ -21,5 +21,4 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY }}
           REMOTE_HOST: ${{ secrets.HOSTNAME }}
           REMOTE_USER: ${{ secrets.USERNAME }}
-          TARGET: "./home/ubuntu/CICD-test"
           SCRIPT_AFTER: "touch xablau.txt"
