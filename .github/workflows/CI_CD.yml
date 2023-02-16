@@ -23,4 +23,5 @@ jobs:
           ssh -t -t -o StrictHostKeyChecking=no -i "piottoArq-key.pem" ubuntu@ec2-18-231-170-83.sa-east-1.compute.amazonaws.com
 
             #Now we have got the access of EC2 and we will start the deploy .
-            cd /home/ubuntu/CICD-test && touch xablau.txt
+          cd /home/ubuntu/CICD-test && touch xablau.txt
+          ^D
