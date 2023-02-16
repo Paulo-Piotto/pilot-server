@@ -19,4 +19,5 @@ jobs:
 
         run: |
           echo "$PRIVATE_KEY" > piottoArq-key.pem && chmod 600 piottoArq-key.pem
-          ssh -i "piottoArq-key.pem" ${USER_NAME}@${HOSTNAME}
+          cat piottoArq-key.pem 
+          echo ${USER_NAME}@${HOSTNAME}
