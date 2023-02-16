@@ -21,4 +21,5 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY }}
           REMOTE_HOST: ${{ secrets.HOSTNAME }}
           REMOTE_USER: ${{ secrets.USERNAME }}
+          TARGET: "./"
           SCRIPT_AFTER: "touch xablau.txt"
