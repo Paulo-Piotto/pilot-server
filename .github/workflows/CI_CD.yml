@@ -18,5 +18,5 @@ jobs:
           USER_NAME: ${{ secrets.USER_NAME  }}
 
         run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ls
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key &&
+          cat private_key
