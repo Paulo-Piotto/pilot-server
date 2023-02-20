@@ -6,8 +6,11 @@ function filterFactory(filter) {
 
     if(filter.client) clientFilter = { clients: { name: filter.client } }
 
-    dateFilter.date.gte = filter.date?.from ?? new Date("1970").toISOString()
-    dateFilter.date.lte = filter.date?.to ?? new Date().toISOString()
+    if(filter.date.from) dateFilter.date.gte = new Date(filter.date.from).toISOString()
+    else dateFilter.date.gte = new Date("1970").toISOString()
+    
+    if(filter.date.to) dateFilter.date.lte = new Date(filter.date.to).toISOString()
+    else dateFilter.date.lte = new Date().toISOString()
 
     return {
         where: {
