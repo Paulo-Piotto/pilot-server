@@ -32,7 +32,10 @@ async function getPunchCardsByEmployees(filterObject) {
 }
 
 async function getPunchCardsByClients(filterObject) {
-    const punchCardsByClients = await punchCardRepository.getPunchCardsByClients(filterFactory(filterObject));
+    const filterObjectWithoutClientParam = filterFactory(filterObject)
+    delete filterObjectWithoutClientParam.where.employees_worked_days.some.clients
+
+    const punchCardsByClients = await punchCardRepository.getPunchCardsByClients(filterObjectWithoutClientParam);
     return punchCardsByClients;
 }
 

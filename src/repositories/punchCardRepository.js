@@ -2,6 +2,7 @@ import client from "../database.js";
 
 async function getAllPunchCardsData() {
     const punchCardData = await client.employees_worked_days.findMany({
+        orderBy: [{ date: "desc" }],
         select: {
             id: true, 
             date: true,
@@ -48,6 +49,7 @@ async function getPunchCardsByEmployees(filter) {
             wage: true,
             start_day: true,
             employees_worked_days: {
+                orderBy: [{ date: "desc" }],
                 select: {
                     id: true,
                     date: true,
