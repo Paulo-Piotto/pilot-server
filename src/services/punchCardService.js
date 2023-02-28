@@ -1,4 +1,6 @@
-import * as punchCardRepository from "../repositories/punchCardRepository.js"
+import * as punchCardRepository from "../repositories/punchCardRepository.js";
+import { findById as findClientById } from "../repositories/clientsRepository.js";
+import { findById as findEmployeeById } from "../repositories/employeesRepository.js";
 
 function filterFactory(filter) {
     let dateFilter = { date: {} }
@@ -36,10 +38,20 @@ async function getPunchCardsByClients(filterObject) {
     delete filterObjectWithoutClientParam.where.employees_worked_days.some.clients
 
     const punchCardsByClients = await punchCardRepository.getPunchCardsByClients(filterObjectWithoutClientParam);
-    return punchCardsByClients;
+
+    return punchCardsByClients.map(byClient => ({
+        id: byClient.id,
+        name: byClient.name,
+        workedDaysAmount: byClient["_count"].employees_worked_days
+    }))
 }
 
 async function registerPunch(punchData) {
+    const { clientId, employeeId } = punchData;
+
+    const [ registeredClient, registeredEmployee ] = await Promise.all([ findClientById(clientId), findEmployeeById(employeeId) ])
+    if(!registeredClient || !registeredEmployee) throw { type: "unprocessable_entity", message: "Cliente ou funcionário desconhecidos" }
+
     const registeredPunch = await punchCardRepository.createPunch(punchData)
     return registeredPunch;
 }
