@@ -28,8 +28,22 @@ async function getPunchCardsByEmployees(req, res) {
     return res.send(punchCardsByEmployees)
 }
 
+async function registerNewPunch(req, res) {
+    const newPunchData = req.body;
+    const registeredPunch = await punchCardService.registerPunch(newPunchData);
+    return res.status(201).send(registeredPunch);
+}
+
+async function removePunch(req, res) {
+    const { id: punchId } = req.params;
+    const removedPunch = await punchCardService.deletePunch(punchId)
+    return res.status(200).send(removedPunch)
+}
+
 export {
     getPunchCards,
     getPunchCardsByEmployees,
-    getPunchCardsByClients
+    getPunchCardsByClients,
+    registerNewPunch,
+    removePunch
 }

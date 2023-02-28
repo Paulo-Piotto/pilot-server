@@ -39,8 +39,20 @@ async function getPunchCardsByClients(filterObject) {
     return punchCardsByClients;
 }
 
+async function registerPunch(punchData) {
+    const registeredPunch = await punchCardRepository.createPunch(punchData)
+    return registeredPunch;
+}
+
+async function deletePunch(punchId) {
+    const deletedPunch = await punchCardRepository.deletePunch(punchId)
+    return deletedPunch;
+}
+
 export {
     getPunchCardsData,
     getPunchCardsByEmployees,
-    getPunchCardsByClients
+    getPunchCardsByClients,
+    registerPunch,
+    deletePunch
 }

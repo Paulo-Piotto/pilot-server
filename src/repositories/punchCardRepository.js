@@ -66,8 +66,31 @@ async function getPunchCardsByEmployees(filter) {
     return punchCardByEmployees;
 }
 
+async function createPunch(punchData) {
+    const { employeeId, clientId, date } = punchData
+
+    const createdPunch = await client.employees_worked_days.create({
+        data: {
+            employee_id: employeeId,
+            client_id: clientId,
+            date
+        }
+    })
+
+    return createdPunch;
+}
+
+async function deletePunch(punchId) {
+    const deletedPunch = await client.employees_worked_days.delete({
+        where: { id: Number(punchId) }
+    })
+    return deletedPunch;
+}
+
 export {
     getAllPunchCardsData,
     getPunchCardsByClients,
-    getPunchCardsByEmployees
+    getPunchCardsByEmployees,
+    createPunch,
+    deletePunch
 }
