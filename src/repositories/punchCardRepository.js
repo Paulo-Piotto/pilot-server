@@ -27,6 +27,7 @@ async function getAllPunchCardsData() {
 async function getPunchCardsByClients(filter) {
     const punchCardsByClients = await client.clients.findMany({
         ...filter,
+        orderBy: [{ name: "asc" }],
         select: {
             id: true,
             name: true,
