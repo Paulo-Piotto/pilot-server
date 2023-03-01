@@ -17,5 +17,5 @@ export function errorHandler(error,req,res,next) {
   if (type === "internal_server_error") {
     return res.status(500).send(message ? message : "Internal server error");
   }
-  res.sendStatus(500);
+  return res.sendStatus(500);
 }

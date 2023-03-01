@@ -1,7 +1,7 @@
 import client from "../database.js";
 
 async function create(newEmployee) {
-   const result = await client.employees.create({
+   await client.employees.create({
      data: {
       name: newEmployee.name,
       wage: newEmployee.wage,

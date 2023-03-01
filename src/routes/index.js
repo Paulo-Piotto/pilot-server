@@ -5,7 +5,7 @@ import employeesRouter from "./employeesRouter.js";
 import ordersRouter from "./ordersRouter.js";
 import usersRouter from "./usersRouter.js";
 import incomesRouter from "./incomesRouter.js";
-
+import punchCardRouter from "./punchCardRouter.js";
 
 const router = Router();
 
@@ -15,5 +15,6 @@ router.use(employeesRouter);
 router.use(ordersRouter);
 router.use(usersRouter);
 router.use(incomesRouter);
+router.use(punchCardRouter)
 
 export default router;
