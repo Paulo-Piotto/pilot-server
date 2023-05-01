@@ -18,6 +18,11 @@ punchCardRouter.post(
     (req, res, next) => schemaValidationMiddleware.test(req, res, next, PunchCardSchemas.registerPunchCard),
     punchCardController.registerNewPunch)
 
+punchCardRouter.post(
+    `${PATH}/massaction`,
+    punchCardController.performMassAction
+)
+
 punchCardRouter.delete(`${PATH}/:id`, punchCardController.removePunch)
 
 export default punchCardRouter;

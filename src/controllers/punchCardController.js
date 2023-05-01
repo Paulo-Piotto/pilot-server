@@ -40,10 +40,17 @@ async function removePunch(req, res) {
     return res.status(200).send(removedPunch)
 }
 
+async function performMassAction(req, res) {
+    const { body } = req;
+    const performedMassAction = await punchCardService.massAction(body);
+    return res.status(200).send(performedMassAction)
+}
+
 export {
     getPunchCards,
     getPunchCardsByEmployees,
     getPunchCardsByClients,
     registerNewPunch,
-    removePunch
+    removePunch,
+    performMassAction
 }
