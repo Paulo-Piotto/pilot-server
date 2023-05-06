@@ -1,10 +1,11 @@
-import * as employeesRepository from '../repositories/employeesRepository.js'
+import * as employeesRepository from "../repositories/employeesRepository.js";
 
 async function create(newEmployee) {
   const alreadyExists = await employeesRepository.find(newEmployee.name);
-  if(alreadyExists[0]){
+  if (alreadyExists[0]) {
     throw { type: "conflict", message: "This employee already exists" };
   }
+  console.log("entrou");
   const result = await employeesRepository.create(newEmployee);
   return result;
 }
@@ -23,11 +24,15 @@ async function findAll() {
 }
 
 async function deleteEmployee(deleteSettings) {
-  const doesntExists = await employeesRepository.findById(Number(deleteSettings.id));
-  if(!doesntExists){
+  const doesntExists = await employeesRepository.findById(
+    Number(deleteSettings.id)
+  );
+  if (!doesntExists) {
     throw { type: "not_found", message: "This employee doesn't exists" };
   }
-  const result = await employeesRepository.deleteEmployee(Number(deleteSettings.id));
+  const result = await employeesRepository.deleteEmployee(
+    Number(deleteSettings.id)
+  );
   return result;
 }
 
