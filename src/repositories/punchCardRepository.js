@@ -101,6 +101,10 @@ async function massPunchDelete(massActionConfig) {
     return deletedPunchs;
 }
 
+async function getEmployeeByName() {
+    return 
+}
+
 async function massPunchRegistration(punchDataArray) {
     const createdPunchs = await client.employees_worked_days.createMany({
         data: punchDataArray
