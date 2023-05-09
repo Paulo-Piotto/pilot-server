@@ -61,6 +61,11 @@ async function deletePunch(punchId) {
     return deletedPunch;
 }
 
+async function getEmployeesWithEmptyPunchCard() {
+    const emptyPunchs = await punchCardRepository.getEmptyPunchCardsByEmployees();
+    return emptyPunchs.map(punchData => ({...punchData, employees_worked_days: []}));
+}
+
 async function massAction(massActionConfig) {
     const massData = massActionConfig.selectedEmployeesIds.map(employeeId => ({
         employee_id: Number(employeeId),
@@ -90,5 +95,6 @@ export {
     getPunchCardsByClients,
     registerPunch,
     deletePunch,
-    massAction
+    massAction,
+    getEmployeesWithEmptyPunchCard
 }

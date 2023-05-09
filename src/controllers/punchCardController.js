@@ -46,11 +46,17 @@ async function performMassAction(req, res) {
     return res.status(200).send(performedMassAction)
 }
 
+async function getEmptyPunchCards(req, res) {
+    const emptyPunchs = await punchCardService.getEmployeesWithEmptyPunchCard();
+    return res.status(200).send(emptyPunchs);
+}
+
 export {
     getPunchCards,
     getPunchCardsByEmployees,
     getPunchCardsByClients,
     registerNewPunch,
     removePunch,
-    performMassAction
+    performMassAction,
+    getEmptyPunchCards
 }

@@ -13,6 +13,9 @@ async function create(newEmployee) {
 
 async function find(employeeName) {
   const result = await client.employees.findMany({
+    include: {
+        employees_worked_days: true
+    },
     orderBy: [
       {
         name: "asc",

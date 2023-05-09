@@ -12,6 +12,7 @@ punchCardRouter.use((req, res, next) => permissionsVerifierMiddleware(req, res, 
 punchCardRouter.get(PATH, punchCardController.getPunchCards)
 punchCardRouter.get(`${PATH}/clients`, punchCardController.getPunchCardsByClients)
 punchCardRouter.get(`${PATH}/employees`, punchCardController.getPunchCardsByEmployees)
+punchCardRouter.get(`${PATH}/empty`, punchCardController.getEmptyPunchCards)
 
 punchCardRouter.post(
     PATH,
@@ -22,6 +23,7 @@ punchCardRouter.post(
     `${PATH}/massaction`,
     punchCardController.performMassAction
 )
+
 
 punchCardRouter.delete(`${PATH}/:id`, punchCardController.removePunch)
 
