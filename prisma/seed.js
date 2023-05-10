@@ -25,7 +25,7 @@ async function roleSeeder() {
     if(notRegisteredRoles.length) {
         console.log(">> Creating Roles... ")
         const seedRoleTypes = await prisma.roles.createMany({
-            data: newRoleData.map(role => role.name )
+            data: notRegisteredRoles.map(role => ({name: role}))
         })
 
         console.log(">>CREATED: ")

@@ -8,10 +8,10 @@ function filterFactory(filter) {
 
     if(filter.client) clientFilter = { clients: { name: filter.client } }
 
-    if(filter.date.from) dateFilter.date.gte = new Date(filter.date.from).toISOString()
+    if(filter.date.from) dateFilter.date.gte = new Date(filter.date.from)
     else dateFilter.date.gte = new Date("1970").toISOString()
-    
-    if(filter.date.to) dateFilter.date.lte = new Date(filter.date.to).toISOString()
+
+    if(filter.date.to) dateFilter.date.lte = new Date(filter.date.to)
     else dateFilter.date.lte = new Date().toISOString()
 
     return {
@@ -61,10 +61,40 @@ async function deletePunch(punchId) {
     return deletedPunch;
 }
 
+async function getEmployeesWithEmptyPunchCard() {
+    const emptyPunchs = await punchCardRepository.getEmptyPunchCardsByEmployees();
+    return emptyPunchs.map(punchData => ({...punchData, employees_worked_days: []}));
+}
+
+async function massAction(massActionConfig) {
+    const massData = massActionConfig.selectedEmployeesIds.map(employeeId => ({
+        employee_id: Number(employeeId),
+        client_id: Number(massActionConfig.clientId),
+        date: new Date(massActionConfig.date).toISOString()
+    }))
+
+    if(massActionConfig.isPresence) {
+        const createdPunchs = await punchCardRepository.massPunchRegistration(massData)
+        return createdPunchs;
+    }
+
+    const dateRangeFrom = new Date(massActionConfig.date)
+    dateRangeFrom.setHours(0, 0, 0)
+
+    const dateRangeTo = new Date(dateRangeFrom)
+    dateRangeTo.setHours(23, 59, 59)
+
+    massActionConfig.dateRange = [dateRangeFrom, dateRangeTo]
+    const deletedPunchs = await punchCardRepository.massPunchDelete(massActionConfig)
+    return deletedPunchs;
+}
+
 export {
     getPunchCardsData,
     getPunchCardsByEmployees,
     getPunchCardsByClients,
     registerPunch,
-    deletePunch
+    deletePunch,
+    massAction,
+    getEmployeesWithEmptyPunchCard
 }

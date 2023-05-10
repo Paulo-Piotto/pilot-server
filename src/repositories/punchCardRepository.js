@@ -38,7 +38,7 @@ async function getPunchCardsByClients(filter) {
             }
         }
     })
-    return punchCardsByClients;
+    return punchCardsByClients;z
 }
 
 async function getPunchCardsByEmployees(filter) {
@@ -67,6 +67,17 @@ async function getPunchCardsByEmployees(filter) {
     return punchCardByEmployees;
 }
 
+async function getEmptyPunchCardsByEmployees() {
+    const emptyPunchCards = await client.employees.findMany({
+        where: {
+            employees_worked_days: {
+                none: {}
+            }
+        }
+    })
+    return emptyPunchCards;
+}
+
 async function createPunch(punchData) {
     const { employeeId, clientId, date } = punchData
 
@@ -88,10 +99,33 @@ async function deletePunch(punchId) {
     return deletedPunch;
 }
 
+async function massPunchDelete(massActionConfig) {
+    const deletedPunchs = await client.employees_worked_days.deleteMany({
+        where: {
+            AND: [
+                {client_id: Number(massActionConfig.clientId)},
+                {employee_id: { in: massActionConfig.selectedEmployeesIds.map(id => Number(id))}},
+                {date: { lte: massActionConfig.dateRange[1].toISOString(), gte: massActionConfig.dateRange[0].toISOString() }}
+            ]
+        }
+    })
+    return deletedPunchs;
+}
+
+async function massPunchRegistration(punchDataArray) {
+    const createdPunchs = await client.employees_worked_days.createMany({
+        data: punchDataArray
+    })
+    return createdPunchs;
+}
+
 export {
     getAllPunchCardsData,
     getPunchCardsByClients,
     getPunchCardsByEmployees,
     createPunch,
-    deletePunch
+    deletePunch,
+    massPunchDelete,
+    massPunchRegistration,
+    getEmptyPunchCardsByEmployees
 }
