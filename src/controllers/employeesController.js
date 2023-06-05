@@ -7,11 +7,7 @@ async function post(req, res) {
 
 async function find(req, res) {
   const name = req.query.name
-  if(name){
-    const result = await employeesService.find(name);
-    return res.status(200).send(result);
-  }
-  const result = await employeesService.findAll();
+  const result = await employeesService.find(name);
   return res.status(200).send(result);
 }
 
