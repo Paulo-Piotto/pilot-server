@@ -55,6 +55,7 @@ async function getNonNullsWorkedDays(filter) {
 
 async function getWorkingDays(filter) {
   const workingDays = await client.employees_worked_days.findMany({
+    orderBy: [{ date: "asc" }],
     select: {
       date: true,
     },
@@ -69,4 +70,34 @@ async function getWorkingDays(filter) {
   return workingDays;
 }
 
-export { getNonNullsWorkedDays, getWorkingDays };
+async function getWorkedDaysByClient(filter) {
+  const clientData = await client.clients.findMany({
+    select: {
+      id: true,
+      name: true,
+      employees_worked_days: {
+        orderBy: [{ employee_id: "asc" }],
+        select: {
+          date: true,
+          employees: {
+            select: {
+              id: true,
+              name: true,
+              wage: true,
+            },
+          },
+        },
+        where: {
+          date: {
+            gte: filter.date.from,
+            lte: filter.date.to,
+          },
+        },
+      },
+    },
+  });
+
+  return clientData;
+}
+
+export { getNonNullsWorkedDays, getWorkingDays, getWorkedDaysByClient };

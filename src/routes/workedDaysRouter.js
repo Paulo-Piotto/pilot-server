@@ -16,5 +16,9 @@ workedDaysRouter.get(
   `${PATH}/workingDays`,
   workedDaysController.getWorkingDays
 );
+workedDaysRouter.get(
+  `${PATH}/clients`,
+  workedDaysController.getWorkedDaysByClient
+);
 
 export default workedDaysRouter;
