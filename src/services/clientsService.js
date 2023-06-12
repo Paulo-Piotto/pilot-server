@@ -1,44 +1,70 @@
-import * as clientsRepository from '../repositories/clientsRepository.js';
+import * as clientsRepository from "../repositories/clientsRepository.js";
+import * as workedDaysRepository from "../repositories/workedDaysRepository.js";
+import {
+  sumEmployeeWorkedDays,
+  expenseCalculate,
+  totalExpenseCalculate,
+} from "./utils/sumWorkedDays.js";
 
 async function create(newClient) {
-  const alreadyExists = await clientsRepository.find(newClient);
-  if(alreadyExists[0]){
+  const client = {
+    client: newClient.name,
+    author: newClient.author,
+    date: {
+      from: undefined,
+      to: undefined,
+    },
+  };
+  const alreadyExists = await clientsRepository.find(client);
+  if (alreadyExists[0]) {
     throw { type: "conflict", message: "This client already exists" };
   }
   const result = await clientsRepository.create(newClient);
   return result;
 }
 
-async function find(searchSettings) {
-  searchSettings.includeArchived === 'false' ? searchSettings.includeArchived = false : searchSettings.includeArchived = true
-  const result = await clientsRepository.find(searchSettings);
+async function find(filterObject) {
+  filterObject.includeArchived === "false"
+    ? (filterObject.includeArchived = false)
+    : (filterObject.includeArchived = true);
+  const result = await clientsRepository.find(filterObject);
   if (!result[0]) {
     throw { type: "not_found", message: "client not found" };
   }
-  return result;
+  const filteredData = sumEmployeeWorkedDays(result);
+  const workingDays = await workedDaysRepository.getWorkingDays(filterObject);
+  const dataWithWorkersExpense = expenseCalculate(filteredData, workingDays);
+  return totalExpenseCalculate(dataWithWorkersExpense);
 }
 
 async function deleteClient(deleteSettings) {
-  const doesntExists = await clientsRepository.findById(Number(deleteSettings.id));
-  if(!doesntExists){
+  const doesntExists = await clientsRepository.findById(
+    Number(deleteSettings.id)
+  );
+  if (!doesntExists) {
     throw { type: "not_found", message: "This client doesn't exists" };
   }
-  const result = await clientsRepository.deleteClient(Number(deleteSettings.id));
+  const result = await clientsRepository.deleteClient(
+    Number(deleteSettings.id)
+  );
   return result;
 }
 
 async function update(updateData) {
   const doesntExists = await clientsRepository.findById(Number(updateData.id));
-  if(!doesntExists){
+  if (!doesntExists) {
     throw { type: "not_found", message: "This client doesn't exists" };
   }
   const result = await clientsRepository.update(updateData);
   return result;
 }
 
-async function getBalance(searchSettings){
-  const result = await clientsRepository.getBalance(searchSettings);
-  return result;
+async function getBalance(filterObject) {
+  const result = await clientsRepository.getBalance(filterObject);
+  const filteredData = sumEmployeeWorkedDays(result);
+  const workingDays = await workedDaysRepository.getWorkingDays(filterObject);
+  const dataWithWorkersExpense = expenseCalculate(filteredData, workingDays);
+  return totalExpenseCalculate(dataWithWorkersExpense);
 }
 
 export { create, find, deleteClient, update, getBalance };

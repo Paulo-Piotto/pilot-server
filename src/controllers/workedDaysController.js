@@ -15,4 +15,12 @@ async function getWorkingDays(req, res) {
   return res.send(workingDays);
 }
 
-export { getNonNullsWorkedDays, getWorkingDays };
+async function getWorkedDaysByClient(req, res) {
+  const filterObject = filterObjectFactory(req.query);
+  const workedDays = await workedDaysService.getWorkedDaysByClient(
+    filterObject
+  );
+  return res.send(workedDays);
+}
+
+export { getNonNullsWorkedDays, getWorkingDays, getWorkedDaysByClient };

@@ -5,7 +5,6 @@ async function create(newEmployee) {
   if (alreadyExists[0]) {
     throw { type: "conflict", message: "This employee already exists" };
   }
-  console.log("entrou");
   const result = await employeesRepository.create(newEmployee);
   return result;
 }

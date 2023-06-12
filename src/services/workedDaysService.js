@@ -1,4 +1,9 @@
 import * as workedDaysRepository from "../repositories/workedDaysRepository.js";
+import {
+  sumEmployeeWorkedDays,
+  expenseCalculate,
+  totalExpenseCalculate,
+} from "./utils/sumWorkedDays.js";
 
 async function getNonNullsWorkedDays(filterObject) {
   const workedDays = await workedDaysRepository.getNonNullsWorkedDays(
@@ -12,4 +17,15 @@ async function getWorkingdDays(filterObject) {
   return workingDays;
 }
 
-export { getNonNullsWorkedDays, getWorkingdDays };
+async function getWorkedDaysByClient(filterObject) {
+  const workedDays = await workedDaysRepository.getWorkedDaysByClient(
+    filterObject
+  );
+  const filteredData = sumEmployeeWorkedDays(workedDays);
+  const workingDays = await workedDaysRepository.getWorkingDays(filterObject);
+  const dataWithWorkersExpense = expenseCalculate(filteredData, workingDays);
+
+  return totalExpenseCalculate(dataWithWorkersExpense);
+}
+
+export { getNonNullsWorkedDays, getWorkingdDays, getWorkedDaysByClient };

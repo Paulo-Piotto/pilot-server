@@ -1,4 +1,5 @@
-import * as clientsService from "../services/clientsService.js"
+import * as clientsService from "../services/clientsService.js";
+import { filterObjectFactory } from "./punchCardController.js";
 
 async function post(req, res) {
   const result = await clientsService.create(req.body);
@@ -6,19 +7,16 @@ async function post(req, res) {
 }
 
 async function find(req, res) {
-  const searchSettings = req.query
-  if(searchSettings.name || searchSettings.initialDate && searchSettings.endDate || searchSettings.includeArchived){
-    const result = await clientsService.find(searchSettings);
-    return res.status(200).send(result);
-  }
-  const result = await clientsService.find({name: ''});
+  const filterObject = filterObjectFactory(req.query);
+
+  const result = await clientsService.find(filterObject);
   return res.status(200).send(result);
 }
 
-async function deleteClient(req, res){
+async function deleteClient(req, res) {
   const deleteSettings = req.query;
 
-  if(!deleteSettings.id){
+  if (!deleteSettings.id) {
     throw { type: "unprocessable_entity", message: "ID is missing" };
   }
 
@@ -26,15 +24,15 @@ async function deleteClient(req, res){
   return res.status(200).send(result);
 }
 
-async function update(req, res){
+async function update(req, res) {
   const updateData = req.body;
   const result = await clientsService.update(updateData);
   return res.status(200).send(result);
 }
 
-async function getBalance(req, res){
-  const searchSettings = req.query;
-  const result = await clientsService.getBalance(searchSettings);
+async function getBalance(req, res) {
+  const filterObject = filterObjectFactory(req.query);
+  const result = await clientsService.getBalance(filterObject);
   return res.status(200).send(result);
 }
 
