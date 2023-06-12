@@ -4,6 +4,11 @@ async function create(newClient) {
   const result = await client.clients.create({
     data: {
       name: newClient.name,
+      accountable: newClient.accountable,
+      contact: newClient.contact,
+      document: newClient.document,
+      project_number: newClient.project_number,
+      address: newClient.address,
       author: newClient.author,
     },
   });
@@ -11,9 +16,15 @@ async function create(newClient) {
 
 async function find(filterObject) {
   const result = await client.clients.findMany({
+    orderBy: [{ name: "asc" }],
     select: {
       id: true,
       name: true,
+      accountable: true,
+      contact: true,
+      address: true,
+      document: true,
+      project_number: true,
       author: true,
       isArchived: true,
       orders: {
@@ -95,6 +106,11 @@ async function update(updateData) {
     },
     data: {
       name: updateData.name,
+      accountable: updateData.accountable,
+      contact: updateData.contact,
+      document: updateData.document,
+      project_number: updateData.project_number,
+      address: updateData.address,
       author: updateData.author,
       isArchived: updateData.isArchived || false,
     },
@@ -104,9 +120,15 @@ async function update(updateData) {
 
 async function getBalance(filterObject) {
   const result = await client.clients.findMany({
+    orderBy: [{ name: "asc" }],
     select: {
       id: true,
       name: true,
+      accountable: true,
+      contact: true,
+      address: true,
+      document: true,
+      project_number: true,
       author: true,
       isArchived: true,
       orders: {

@@ -6,6 +6,11 @@ async function create(newEmployee) {
       name: newEmployee.name,
       wage: newEmployee.wage,
       start_day: newEmployee.startDate,
+      contact: newEmployee.contact,
+      document: newEmployee.document,
+      address: newEmployee.address,
+      pix: newEmployee.pix,
+      obs: newEmployee.obs,
       author: newEmployee.author,
     },
   });
@@ -14,7 +19,7 @@ async function create(newEmployee) {
 async function find(employeeName) {
   const result = await client.employees.findMany({
     include: {
-        employees_worked_days: true
+      employees_worked_days: true,
     },
     orderBy: [
       {
@@ -60,4 +65,23 @@ async function deleteEmployee(id) {
   return result;
 }
 
-export { create, find, findAll, findById, deleteEmployee };
+async function update(employeeData) {
+  await client.employees.update({
+    data: {
+      name: employeeData.name,
+      wage: employeeData.wage,
+      start_day: employeeData.startDate,
+      contact: employeeData.contact,
+      document: employeeData.document,
+      address: employeeData.address,
+      pix: employeeData.pix,
+      obs: employeeData.obs,
+      author: employeeData.author,
+    },
+    where: {
+      id: employeeData.id,
+    },
+  });
+}
+
+export { create, find, findAll, findById, deleteEmployee, update };
