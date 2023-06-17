@@ -15,8 +15,8 @@ punchCardRouter.get(`${PATH}/clients`, punchCardController.getPunchCardsByClient
 punchCardRouter.get(`${PATH}/employees`, punchCardController.getPunchCardsByEmployees)
 punchCardRouter.get(`${PATH}/empty`, punchCardController.getEmptyPunchCards)
 
+punchCardRouter.delete(`${PATH}/:id`, punchCardController.removePunch)
 
-punchCardRouter.use((req, res, next) => filterAvailableDates(req, res, next))
 punchCardRouter.post(
     PATH,
     (req, res, next) => schemaValidationMiddleware.test(req, res, next, PunchCardSchemas.registerPunchCard),
@@ -25,10 +25,8 @@ punchCardRouter.post(
 punchCardRouter.post(
     `${PATH}/massaction`,
     (req, res, next) => schemaValidationMiddleware.test(req, res, next, PunchCardSchemas.massActionConfig),
+    (req, res, next) => filterAvailableDates(req, res, next),
     punchCardController.performMassAction
 )
-
-
-punchCardRouter.delete(`${PATH}/:id`, punchCardController.removePunch)
 
 export default punchCardRouter;

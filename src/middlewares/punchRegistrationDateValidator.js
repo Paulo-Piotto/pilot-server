@@ -14,9 +14,6 @@ export default async function filterAvailableDates(req, res, next) {
         if(hashTableAlreadyRegisteredEmployeePunch[id]) continue;
         newEmployeesIds.push(id);
     }
-
-    console.log("ALLOWED IDS FOR REGISTRATION: ")
-    console.log(newEmployeesIds)
     req.filteredValidEmployeesIds = newEmployeesIds;
 
     return next();
