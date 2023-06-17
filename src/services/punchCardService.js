@@ -83,7 +83,7 @@ async function getEmployeesWithEmptyPunchCard() {
 }
 
 async function massAction(massActionConfig) {
-  const massData = massActionConfig.selectedEmployeesIds.map((employeeId) => ({
+  const massData = massActionConfig.filteredValidEmployeesIds.map((employeeId) => ({
     employee_id: Number(employeeId),
     client_id: Number(massActionConfig.clientId),
     date: new Date(massActionConfig.date).toISOString(),
@@ -106,6 +106,7 @@ async function massAction(massActionConfig) {
   const deletedPunchs = await punchCardRepository.massPunchDelete(
     massActionConfig
   );
+
   return deletedPunchs;
 }
 

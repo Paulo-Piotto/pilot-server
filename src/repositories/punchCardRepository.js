@@ -112,6 +112,23 @@ async function massPunchDelete(massActionConfig) {
     return deletedPunchs;
 }
 
+async function getEmployeesWithDateAlreadyRegistered(dateReference, employeesId) {
+    const employeesWithoutPunchsRegistered = await client.employees_worked_days.findMany({
+        select: {
+            employee_id: true,
+        },
+        where: {
+            AND: [
+                {employee_id: { in: employeesId },},
+                {date: { equals: dateReference }},
+            ]
+        }
+    })
+    const hashTable = {};
+    for(const data of employeesWithoutPunchsRegistered) hashTable[data.employee_id] = true;
+    return hashTable;
+}
+
 async function massPunchRegistration(punchDataArray) {
     const createdPunchs = await client.employees_worked_days.createMany({
         data: punchDataArray
@@ -127,5 +144,6 @@ export {
     deletePunch,
     massPunchDelete,
     massPunchRegistration,
-    getEmptyPunchCardsByEmployees
+    getEmptyPunchCardsByEmployees,
+    getEmployeesWithDateAlreadyRegistered
 }

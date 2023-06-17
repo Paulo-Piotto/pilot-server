@@ -14,6 +14,7 @@ export const filterWorkedDaysObject = Joi.object({
 
 export const massActionConfig = Joi.object({
     isPresence: Joi.boolean().required(),
+    date: Joi.any(),
     clientId: Joi.number().required(),
     selectedEmployeesIds: Joi.array().required()
 })
