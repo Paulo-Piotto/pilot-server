@@ -48,11 +48,22 @@ async function findAll() {
 }
 
 async function findById(id) {
-  const result = await client.employees.findUnique({
-    where: {
-      id: id,
-    },
-  });
+    let result;
+    if(typeof id === "number") {
+        result = await client.employees.findUnique({
+          where: {
+            id: id,
+          },
+        });
+    } else {
+        result = await client.employees.find({
+            where: {
+              id: {
+                in: id,
+              },
+            },
+          });
+    }
   return result;
 }
 

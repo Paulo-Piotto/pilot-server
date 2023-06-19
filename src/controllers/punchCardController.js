@@ -48,7 +48,10 @@ async function removePunch(req, res) {
 
 async function performMassAction(req, res) {
   const { body } = req;
-  const performedMassAction = await punchCardService.massAction(body);
+  const performedMassAction = await punchCardService.massAction({
+    ...body,
+    filteredValidEmployeesIds: req.filteredValidEmployeesIds
+    });
   return res.status(200).send(performedMassAction);
 }
 

@@ -1,7 +1,7 @@
 import client from "../database.js";
 
 async function create(newClient) {
-  const result = await client.clients.create({
+  await client.clients.create({
     data: {
       name: newClient.name,
       accountable: newClient.accountable,
