@@ -1,4 +1,4 @@
-import * as employeesService from '../services/employeesService.js';
+import * as employeesService from "../services/employeesService.js";
 
 async function post(req, res) {
   const result = await employeesService.create(req.body);
@@ -6,15 +6,15 @@ async function post(req, res) {
 }
 
 async function find(req, res) {
-  const name = req.query.name
+  const name = req.query.name;
   const result = await employeesService.find(name);
   return res.status(200).send(result);
 }
 
-async function deleteEmployee(req, res){
+async function deleteEmployee(req, res) {
   const deleteSettings = req.query;
 
-  if(!deleteSettings.id){
+  if (!deleteSettings.id) {
     throw { type: "unprocessable_entity", message: "ID is missing" };
   }
 
@@ -22,4 +22,10 @@ async function deleteEmployee(req, res){
   return res.status(200).send(result);
 }
 
-export { post, find, deleteEmployee };
+async function update(req, res) {
+  const employeeData = req.body;
+  const result = await employeesService.update(employeeData);
+  return res.status(200).send(result);
+}
+
+export { post, find, deleteEmployee, update };

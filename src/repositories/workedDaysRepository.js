@@ -7,6 +7,11 @@ async function getNonNullsWorkedDays(filter) {
       id: true,
       name: true,
       wage: true,
+      contact: true,
+      document: true,
+      pix: true,
+      address: true,
+      obs: true,
       start_day: true,
       author: true,
       employees_worked_days: {

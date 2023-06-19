@@ -8,6 +8,11 @@ function sumEmployeeWorkedDays(freqArray) {
       result.push({
         id: freqArray[i].id,
         name: freqArray[i].name,
+        accountable: freqArray[i].accountable,
+        contact: freqArray[i].contact,
+        document: freqArray[i].document,
+        address: freqArray[i].address,
+        project_number: freqArray[i].project_number,
         author: freqArray[i].author,
         isArchived: freqArray[i].isArchived,
         incomes: freqArray[i].incomes,

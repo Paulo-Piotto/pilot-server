@@ -35,4 +35,15 @@ async function deleteEmployee(deleteSettings) {
   return result;
 }
 
-export { create, find, findAll, deleteEmployee };
+async function update(employeeData) {
+  const doesntExists = await employeesRepository.findById(
+    Number(employeeData.id)
+  );
+  if (!doesntExists) {
+    throw { type: "not_found", message: "This employee doesn't exists" };
+  }
+  const result = await employeesRepository.update(employeeData);
+  return result;
+}
+
+export { create, find, findAll, deleteEmployee, update };
