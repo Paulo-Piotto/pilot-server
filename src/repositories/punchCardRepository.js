@@ -103,7 +103,7 @@ async function massPunchDelete(massActionConfig) {
     const deletedPunchs = await client.employees_worked_days.deleteMany({
         where: {
             AND: [
-                {client_id: Number(massActionConfig.clientId)},
+                {client_id: Number(massActionConfig.clientId)}, //Só apaga se o cliente do registro de presença for o mesmo do informado
                 {employee_id: { in: massActionConfig.selectedEmployeesIds.map(id => Number(id))}},
                 {date: { lte: massActionConfig.dateRange[1].toISOString(), gte: massActionConfig.dateRange[0].toISOString() }}
             ]
