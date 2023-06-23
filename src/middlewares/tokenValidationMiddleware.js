@@ -3,7 +3,7 @@ export async function test( req, res, next ) {
   const token = authorization?.replace("Bearer ", "");
 
   if (!token) {
-    throw { type: "unauthorized", message: "Invalid token format" };
+    throw { type: "unauthorized", message: "Formato de token inválido" };
   }
 
   next();

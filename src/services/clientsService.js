@@ -17,7 +17,7 @@ async function create(newClient) {
   };
   const alreadyExists = await clientsRepository.find(client);
   if (alreadyExists[0]) {
-    throw { type: "conflict", message: "This client already exists" };
+    throw { type: "conflict", message: "Essa obra já foi cadastrada" };
   }
   const result = await clientsRepository.create(newClient);
   return result;
@@ -29,7 +29,7 @@ async function find(filterObject) {
     : (filterObject.includeArchived = true);
   const result = await clientsRepository.find(filterObject);
   if (!result[0]) {
-    throw { type: "not_found", message: "client not found" };
+    throw { type: "not_found", message: "Obra não encontrada" };
   }
   const filteredData = sumEmployeeWorkedDays(result);
   const workingDays = await workedDaysRepository.getWorkingDays(filterObject);
@@ -42,7 +42,7 @@ async function deleteClient(deleteSettings) {
     Number(deleteSettings.id)
   );
   if (!doesntExists) {
-    throw { type: "not_found", message: "This client doesn't exists" };
+    throw { type: "not_found", message: "Essa obra não existe" };
   }
   const result = await clientsRepository.deleteClient(
     Number(deleteSettings.id)
@@ -53,7 +53,7 @@ async function deleteClient(deleteSettings) {
 async function update(updateData) {
   const doesntExists = await clientsRepository.findById(Number(updateData.id));
   if (!doesntExists) {
-    throw { type: "not_found", message: "This client doesn't exists" };
+    throw { type: "not_found", message: "Essa obra não existe" };
   }
   const result = await clientsRepository.update(updateData);
   return result;

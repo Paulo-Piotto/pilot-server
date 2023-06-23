@@ -15,7 +15,7 @@ async function deleteEmployee(req, res) {
   const deleteSettings = req.query;
 
   if (!deleteSettings.id) {
-    throw { type: "unprocessable_entity", message: "ID is missing" };
+    throw { type: "unprocessable_entity", message: "ID não encontrado" };
   }
 
   const result = await employeesService.deleteEmployee(deleteSettings);

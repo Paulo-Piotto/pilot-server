@@ -7,7 +7,7 @@ async function createNewUser(newUser) {
     const hashedPassword = bcrypt.hash(newUser.password, saltRounds);
 
     const alreadyRegisteredEmail = await usersRepository.findAlreadyRegisteredEmail(newUser.email);
-    if(alreadyRegisteredEmail) throw { type: "conflict", message: "This email is already registered" };
+    if(alreadyRegisteredEmail) throw { type: "conflict", message: "Esse email já foi registrado" };
 
     const createdUser = await usersRepository.create({...newUser, password: await hashedPassword});
     delete createdUser.password;
@@ -16,10 +16,10 @@ async function createNewUser(newUser) {
 
 async function logUser(credentials) {
     const registeredUser = await usersRepository.findAlreadyRegisteredEmail(credentials.email);
-    if(!registeredUser) throw { type: "unauthorized", message: "This email is not registered" }
+    if(!registeredUser) throw { type: "unauthorized", message: "Esse email não está registrado" }
 
     const verifyPassword = await bcrypt.compare(credentials.password, registeredUser.password);
-    if(!verifyPassword) throw { type: "unauthorized", message: "The credentials provided does not match" }
+    if(!verifyPassword) throw { type: "unauthorized", message: "As credenciais estão incorretas" }
 
     const jwtData = {
         name: registeredUser.name,
@@ -48,7 +48,7 @@ async function getAllUsersData() {
 
 async function updateUserData(newUserData) {
     const updatedUserData = await usersRepository.updateUserByUserId(newUserData);
-    if(!updatedUserData) throw { type: "not_found", message: "This user does not exist" }
+    if(!updatedUserData) throw { type: "not_found", message: "Esse usuário não existe" }
 
     delete updatedUserData["role_id"]
     delete updatedUserData["password"]

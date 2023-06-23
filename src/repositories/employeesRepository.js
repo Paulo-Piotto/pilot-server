@@ -4,6 +4,7 @@ async function create(newEmployee) {
   await client.employees.create({
     data: {
       name: newEmployee.name,
+      name: newEmployee.fullname,
       wage: newEmployee.wage,
       start_day: newEmployee.startDate,
       contact: newEmployee.contact,
@@ -80,6 +81,7 @@ async function update(employeeData) {
   await client.employees.update({
     data: {
       name: employeeData.name,
+      fullname: employeeData.fullname,
       wage: employeeData.wage,
       start_day: employeeData.startDate,
       contact: employeeData.contact,

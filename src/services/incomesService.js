@@ -3,7 +3,7 @@ import * as incomesRepository from "../repositories/incomesRepository.js"
 async function create(newIncome) {
   const alreadyExists = await incomesRepository.findByName(newIncome.name);
   if(alreadyExists[0]){
-    throw { type: "conflict", message: "This order already exists" };
+    throw { type: "conflict", message: "Essa entrada já foi cadastrada" };
   }
   const result = await incomesRepository.create(newIncome);
   return result;
@@ -25,7 +25,7 @@ async function find(searchSettings) {
 async function deleteIncome(deleteSettings) {
   const doesntExists = await incomesRepository.findById(Number(deleteSettings.id));
   if(!doesntExists){
-    throw { type: "not_found", message: "This order doesn't exists" };
+    throw { type: "not_found", message: "Essa entrada não existe" };
   }
   const result = await incomesRepository.deleteIncome(Number(deleteSettings.id));
   return result;

@@ -25,6 +25,7 @@ model clients {
 model employees {
   id                    Int                     @id @default(autoincrement())
   name                  String                  @unique
+  fullname              String?                  
   wage                  Int
   start_day             DateTime
   address               String?
