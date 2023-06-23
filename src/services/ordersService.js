@@ -4,7 +4,7 @@ import orderSearchSchema from "../schemas/orderSearchSchema.js";
 async function create(newOrder) {
   const alreadyExists = await ordersRepository.findByInvoice(newOrder.invoice);
   if (alreadyExists[0]) {
-    throw { type: "conflict", message: "This order already exists" };
+    throw { type: "conflict", message: "Esse pedido já foi cadastrado" };
   }
   const result = await ordersRepository.create(newOrder);
   return result;
@@ -43,7 +43,7 @@ async function deleteOrder(deleteSettings) {
     Number(deleteSettings.id)
   );
   if (!doesntExists) {
-    throw { type: "not_found", message: "This order doesn't exists" };
+    throw { type: "not_found", message: "Esse pedido não existe" };
   }
   const result = await ordersRepository.deleteOrder(Number(deleteSettings.id));
   return result;
@@ -52,7 +52,7 @@ async function deleteOrder(deleteSettings) {
 async function update(updateOrder) {
   const doesntExists = await ordersRepository.findById(updateOrder.id);
   if (!doesntExists) {
-    throw { type: "not_found", message: "This order doesn't exists" };
+    throw { type: "not_found", message: "Esse pedido não existe" };
   }
   const result = await ordersRepository.update(updateOrder);
   return result;

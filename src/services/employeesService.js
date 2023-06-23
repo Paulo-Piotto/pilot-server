@@ -3,7 +3,7 @@ import * as employeesRepository from "../repositories/employeesRepository.js";
 async function create(newEmployee) {
   const alreadyExists = await employeesRepository.find(newEmployee.name);
   if (alreadyExists[0]) {
-    throw { type: "conflict", message: "This employee already exists" };
+    throw { type: "conflict", message: "Esse funcionário já foi cadastrado" };
   }
   const result = await employeesRepository.create(newEmployee);
   return result;
@@ -11,9 +11,6 @@ async function create(newEmployee) {
 
 async function find(employeeName) {
   const result = await employeesRepository.find(employeeName);
-  if (!result[0]) {
-    throw { type: "not_found", message: "employee not found" };
-  }
   return result;
 }
 
@@ -27,7 +24,7 @@ async function deleteEmployee(deleteSettings) {
     Number(deleteSettings.id)
   );
   if (!doesntExists) {
-    throw { type: "not_found", message: "This employee doesn't exists" };
+    throw { type: "not_found", message: "Esse funcionário não existe" };
   }
   const result = await employeesRepository.deleteEmployee(
     Number(deleteSettings.id)
@@ -40,7 +37,7 @@ async function update(employeeData) {
     Number(employeeData.id)
   );
   if (!doesntExists) {
-    throw { type: "not_found", message: "This employee doesn't exists" };
+    throw { type: "not_found", message: "Esse funcionário não existe" };
   }
   const result = await employeesRepository.update(employeeData);
   return result;
