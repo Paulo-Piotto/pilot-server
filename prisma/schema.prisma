@@ -53,6 +53,7 @@ model employees_food {
   type        String
   value       Int
   date        DateTime  @default(now())
+  author      String?
   employees   employees @relation(fields: [employee_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "employees_food_employee_id_foreign")
 }
 
