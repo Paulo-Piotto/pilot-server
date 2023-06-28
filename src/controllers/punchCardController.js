@@ -1,10 +1,11 @@
 import * as punchCardService from "../services/punchCardService.js";
 
 function filterObjectFactory(query) {
-  const { from, to, client, employee, includeArchived } = query;
+  const { from, to, client, employee, includeArchived, type } = query;
   return {
     includeArchived,
     employee,
+    type,
     client,
     date: {
       from,

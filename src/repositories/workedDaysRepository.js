@@ -36,6 +36,20 @@ async function getNonNullsWorkedDays(filter) {
           },
         },
       },
+      employees_food: {
+        select: {
+          id: true,
+          type: true,
+          value: true,
+          date: true,
+        },
+        where: {
+          date: {
+            gte: filter.date.from,
+            lte: filter.date.to,
+          },
+        }
+      },
     },
     where: {
       employees_worked_days: {
