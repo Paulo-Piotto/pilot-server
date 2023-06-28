@@ -4,7 +4,7 @@ async function create(newEmployee) {
   await client.employees.create({
     data: {
       name: newEmployee.name,
-      name: newEmployee.fullname,
+      fullname: newEmployee.fullname,
       wage: newEmployee.wage,
       start_day: newEmployee.startDate,
       contact: newEmployee.contact,
