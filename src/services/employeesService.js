@@ -1,7 +1,7 @@
 import * as employeesRepository from "../repositories/employeesRepository.js";
 
 async function create(newEmployee) {
-  const alreadyExists = await employeesRepository.find(newEmployee.name);
+  const alreadyExists = await employeesRepository.findSameName(newEmployee.name);
   if (alreadyExists[0]) {
     throw { type: "conflict", message: "Esse funcionário já foi cadastrado" };
   }
