@@ -37,6 +37,26 @@ async function find(employeeName) {
   return result;
 }
 
+async function findSameName(employeeName) {
+  const result = await client.employees.findMany({
+    include: {
+      employees_worked_days: true,
+    },
+    orderBy: [
+      {
+        name: "asc",
+      },
+    ],
+    where: {
+      name: {
+        equals: employeeName,
+        mode: "insensitive",
+      },
+    },
+  });
+  return result;
+}
+
 async function findAll() {
   const result = await client.employees.findMany({
     orderBy: [
@@ -97,4 +117,4 @@ async function update(employeeData) {
   });
 }
 
-export { create, find, findAll, findById, deleteEmployee, update };
+export { create, find, findSameName, findAll, findById, deleteEmployee, update };
