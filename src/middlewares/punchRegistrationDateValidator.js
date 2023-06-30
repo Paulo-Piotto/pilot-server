@@ -2,7 +2,10 @@ import { getEmployeesWithDateAlreadyRegistered } from "../repositories/punchCard
 
 // receive an array of employees ids and returns another array with the ones that have no presence in that date
 export default async function filterAvailableDates(req, res, next) {
-    if(!req.body.isPresence) return;
+    if(!req.body.isPresence) {
+        req.filteredValidEmployeesIds = req.body.selectedEmployeesIds;
+        return next();
+    }
 
     const employeesIds = typeof req.body.selectedEmployeesIds === "object" ? req.body.selectedEmployeesIds : [req.body.selectedEmployeesIds];
     const referenceDate = req.body.date;
