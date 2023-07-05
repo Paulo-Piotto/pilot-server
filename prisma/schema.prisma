@@ -32,6 +32,7 @@ model employees {
   contact               String?
   document              String?
   pix                   String?
+  loan                  Int                     @default(0)
   obs                   String?
   author                String?
   employees_worked_days employees_worked_days[]
