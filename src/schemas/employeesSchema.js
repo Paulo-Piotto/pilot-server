@@ -9,6 +9,7 @@ const employeeSchema = Joi.object({
   contact: Joi.string().min(0),
   document: Joi.string().min(0),
   pix: Joi.string().min(0),
+  loan: Joi.number(),
   obs: Joi.string().min(0),
   author: Joi.string().required(),
 });
@@ -22,6 +23,7 @@ const employeeUpdateSchema = Joi.object({
   contact: Joi.string().min(0),
   document: Joi.string().min(0),
   pix: Joi.string().min(0),
+  loan: Joi.number(),
   obs: Joi.string().min(0),
   author: Joi.string().required(),
   id: Joi.number().min(1).required(),

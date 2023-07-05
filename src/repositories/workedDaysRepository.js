@@ -10,6 +10,7 @@ async function getNonNullsWorkedDays(filter) {
       contact: true,
       document: true,
       pix: true,
+      loan: true,
       address: true,
       obs: true,
       start_day: true,
