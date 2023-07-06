@@ -9,8 +9,8 @@ async function create(newEmployee) {
   return result;
 }
 
-async function find(employeeName) {
-  const result = await employeesRepository.find(employeeName);
+async function find(filter) {
+  const result = await employeesRepository.find(filter);
   return result;
 }
 

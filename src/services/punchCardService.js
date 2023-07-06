@@ -19,6 +19,7 @@ function filterFactory(filter) {
       employees_worked_days: {
         some: { ...dateFilter, ...clientFilter },
       },
+      isArchived: false,
     },
   };
 }
