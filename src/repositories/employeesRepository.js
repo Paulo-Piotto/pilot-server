@@ -18,7 +18,7 @@ async function create(newEmployee) {
   });
 }
 
-async function find(employeeName) {
+async function find(filter) {
   const result = await client.employees.findMany({
     include: {
       employees_worked_days: true,
@@ -30,9 +30,17 @@ async function find(employeeName) {
     ],
     where: {
       name: {
-        contains: employeeName,
+        contains: filter.name,
         mode: "insensitive",
       },
+      OR: [
+        {
+          isArchived: false,
+        },
+        {
+          isArchived: Boolean(filter.includeArchived),
+        },
+      ],
     },
   });
   return result;
@@ -112,6 +120,7 @@ async function update(employeeData) {
       loan: employeeData.loan,
       obs: employeeData.obs,
       author: employeeData.author,
+      isArchived: Boolean(employeeData.isArchived)
     },
     where: {
       id: employeeData.id,

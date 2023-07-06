@@ -53,6 +53,7 @@ async function getNonNullsWorkedDays(filter) {
       },
     },
     where: {
+      isArchived: false,
       employees_worked_days: {
         some: {
           clients: {

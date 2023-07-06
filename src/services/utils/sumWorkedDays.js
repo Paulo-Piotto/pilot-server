@@ -53,7 +53,8 @@ function expenseCalculate(daysCountArray, workingDays) {
       workingDays[0].date,
       workingDays[workingDays.length - 1].date
     );
-    const avgWorkingDays = daysCount / difference;
+    let avgWorkingDays = daysCount;
+    difference > 0 ? avgWorkingDays = daysCount / difference :  avgWorkingDays = daysCount
     const result = [...daysCountArray];
     for (let i = 0; i < result.length; i++) {
       for (let j = 0; j < result[i].employeesDays.length; j++) {

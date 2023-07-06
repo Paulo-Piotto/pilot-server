@@ -19,6 +19,11 @@ async function getAllPunchCardsData() {
                     wage: true
                 }
             }
+        },
+        where: {
+            employees: {
+                isArchived: false,
+            }
         }
     })
     return punchCardData;
@@ -72,7 +77,8 @@ async function getEmptyPunchCardsByEmployees() {
         where: {
             employees_worked_days: {
                 none: {}
-            }
+            },
+            isArchived: false,
         }
     })
     return emptyPunchCards;

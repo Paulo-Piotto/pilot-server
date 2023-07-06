@@ -27,6 +27,7 @@ const employeeUpdateSchema = Joi.object({
   obs: Joi.string().min(0),
   author: Joi.string().required(),
   id: Joi.number().min(1).required(),
+  isArchived: Joi.boolean(),
 });
 
 export { employeeSchema, employeeUpdateSchema };

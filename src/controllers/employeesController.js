@@ -6,8 +6,8 @@ async function post(req, res) {
 }
 
 async function find(req, res) {
-  const name = req.query.name;
-  const result = await employeesService.find(name);
+  const filter = req.query;
+  const result = await employeesService.find(filter);
   return res.status(200).send(result);
 }
 

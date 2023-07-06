@@ -35,6 +35,7 @@ model employees {
   loan                  Int                     @default(0)
   obs                   String?
   author                String?
+  isArchived            Boolean                 @default(false)
   employees_worked_days employees_worked_days[]
   employees_food        employees_food[]
 }
