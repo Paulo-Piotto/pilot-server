@@ -11,7 +11,6 @@ async function create(newEmployee) {
       document: newEmployee.document,
       address: newEmployee.address,
       pix: newEmployee.pix,
-      loan: employeeData.loan,
       obs: newEmployee.obs,
       author: newEmployee.author,
     },
