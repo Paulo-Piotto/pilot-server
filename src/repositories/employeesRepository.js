@@ -34,7 +34,7 @@ async function find(filter) {
       },
       OR: [
         {
-          isArchived: false,
+          isArchived: Boolean(filter.onlyArchived),
         },
         {
           isArchived: Boolean(filter.includeArchived),

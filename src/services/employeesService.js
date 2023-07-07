@@ -10,6 +10,7 @@ async function create(newEmployee) {
 }
 
 async function find(filter) {
+  filter.onlyArchived ? filter.includeArchived = true : null;
   const result = await employeesRepository.find(filter);
   return result;
 }
