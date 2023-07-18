@@ -25,7 +25,9 @@ async function find(storeName) {
 }
 
 async function findAll() {
-  const result = await client.stores.findMany();
+  const result = await client.stores.findMany({
+    orderBy: [{ name: "asc" }],
+  });
   return result;
 }
 
