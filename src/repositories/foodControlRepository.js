@@ -8,7 +8,14 @@ async function create(newFood) {
       type: newFood.type,
       value: newFood.value,
       author: newFood.author,
-    }
+    },
+  });
+  return result;
+}
+
+async function createMany(orderArray) {
+  const result = await client.employees_food.createMany({
+    data: orderArray,
   });
   return result;
 }
@@ -26,7 +33,7 @@ async function find(filter) {
         select: {
           id: true,
           name: true,
-        }
+        },
       },
     },
     where: {
@@ -39,7 +46,7 @@ async function find(filter) {
       date: {
         gte: filter.date.from,
         lte: filter.date.to,
-      }
+      },
     },
   });
   return employeesFood;
@@ -48,8 +55,8 @@ async function find(filter) {
 async function findById(filter) {
   const employeesFood = await client.employees_food.findMany({
     where: {
-      id: filter.id
-    }
+      id: filter.id,
+    },
   });
   return employeesFood;
 }
@@ -57,7 +64,7 @@ async function findById(filter) {
 async function update(updateFood) {
   const result = await client.employees_food.update({
     where: {
-      id: updateFood.id
+      id: updateFood.id,
     },
     data: {
       employee_id: updateFood.employee,
@@ -73,10 +80,10 @@ async function update(updateFood) {
 async function deleteFood(deleteSettings) {
   const result = await client.employees_food.delete({
     where: {
-      id: deleteSettings.id
+      id: deleteSettings.id,
     },
   });
   return result;
 }
 
-export { find, create, update, deleteFood, findById }
+export { find, create, createMany, update, deleteFood, findById };

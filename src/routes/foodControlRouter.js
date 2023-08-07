@@ -2,7 +2,11 @@ import { Router } from "express";
 import * as foodControlController from "../controllers/foodControlController.js";
 import permissionsVerifierMiddleware from "../middlewares/permissionsVerifierMiddleware.js";
 import * as schemaValidationMiddleware from "../middlewares/schemaValidationMiddleware.js";
-import { foodSchema, updateFoodSchema } from "../schemas/foodSchema.js";
+import {
+  foodSchema,
+  updateFoodSchema,
+  cartSchema,
+} from "../schemas/foodSchema.js";
 
 const foodControlRouter = Router();
 const PATH = "/employeesFood";
@@ -16,6 +20,12 @@ foodControlRouter.post(
   (req, res, next) =>
     schemaValidationMiddleware.test(req, res, next, foodSchema),
   foodControlController.create
+);
+foodControlRouter.post(
+  `${PATH}/cart`,
+  (req, res, next) =>
+    schemaValidationMiddleware.test(req, res, next, cartSchema),
+  foodControlController.massCreate
 );
 foodControlRouter.get(PATH, foodControlController.getEmployeesFood);
 foodControlRouter.put(
