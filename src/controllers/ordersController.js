@@ -7,8 +7,12 @@ async function post(req, res) {
 
 async function find(req, res) {
   const searchSettings = req.query;
-
-  const result = await ordersService.find(searchSettings);
+  let result = false;
+  if (!searchSettings.order || searchSettings.order === "undefined") {
+    result = await ordersService.find(searchSettings);
+  } else {
+    result = await ordersService.findOrder(searchSettings);
+  }
   return res.status(200).send(result);
 }
 

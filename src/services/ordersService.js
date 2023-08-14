@@ -38,6 +38,11 @@ async function find(searchSettings) {
   return result;
 }
 
+async function findOrder(searchSettings) {
+  const result = await ordersRepository.findByInvoice(searchSettings.order);
+  return result;
+}
+
 async function deleteOrder(deleteSettings) {
   const doesntExists = await ordersRepository.findById(
     Number(deleteSettings.id)
@@ -58,4 +63,4 @@ async function update(updateOrder) {
   return result;
 }
 
-export { create, find, deleteOrder, update };
+export { create, find, findOrder, deleteOrder, update };

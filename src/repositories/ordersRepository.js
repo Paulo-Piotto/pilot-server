@@ -18,6 +18,23 @@ async function create(newOrder) {
 
 async function findByInvoice(orderInvoice) {
   const result = await client.orders.findMany({
+    orderBy: [
+      {
+        date: "desc",
+      },
+    ],
+    select: {
+      id: true,
+      invoice: true,
+      date: true,
+      stores: true,
+      clients: true,
+      value: true,
+      value_financed: true,
+      value_cash: true,
+      value_negotiated: true,
+      author: true,
+    },
     where: {
       invoice: {
         contains: orderInvoice,
