@@ -11,6 +11,7 @@ async function create(newOrder) {
       value_negotiated: newOrder.negotiated,
       value_cash: newOrder.cash,
       value_financed: newOrder.financed,
+      obs: newOrder.obs,
       author: newOrder.author,
     },
   });
@@ -33,6 +34,7 @@ async function findByInvoice(orderInvoice) {
       value_financed: true,
       value_cash: true,
       value_negotiated: true,
+      obs: true,
       author: true,
     },
     where: {
@@ -62,6 +64,7 @@ async function find(searchSettings) {
       value_financed: true,
       value_cash: true,
       value_negotiated: true,
+      obs: true,
       author: true,
     },
     where: {
@@ -117,6 +120,7 @@ async function update(updateData) {
       value_negotiated: updateData.negotiated,
       value_cash: updateData.cash,
       value_financed: updateData.financed,
+      obs: updateData.obs,
       author: updateData.author,
     },
   });
