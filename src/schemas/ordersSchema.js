@@ -27,4 +27,8 @@ const updateOrdersSchema = Joi.object({
   author: Joi.string().required(),
 });
 
-export { ordersSchema, updateOrdersSchema };
+const deleteManySchema = Joi.object({
+  deleteSettings: Joi.array().items(Joi.number().min(1)),
+});
+
+export { ordersSchema, updateOrdersSchema, deleteManySchema };

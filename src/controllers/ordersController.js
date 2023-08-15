@@ -27,9 +27,15 @@ async function deleteOrder(req, res) {
   return res.status(200).send(result);
 }
 
+async function deleteMany(req, res) {
+  const { deleteSettings } = req.body;
+  const result = await ordersService.deleteMany(deleteSettings);
+  return res.status(200).send(result);
+}
+
 async function update(req, res) {
   const result = await ordersService.update(req.body);
   return res.status(201).send(result);
 }
 
-export { post, find, deleteOrder, update };
+export { post, find, deleteOrder, update, deleteMany };

@@ -14,6 +14,7 @@ ordersRouter.post(
 );
 ordersRouter.get(`${PATH}`, ordersController.find);
 ordersRouter.delete(`${PATH}`, ordersController.deleteOrder);
+ordersRouter.delete(`${PATH}/many`, ordersController.deleteMany);
 ordersRouter.put(
   `${PATH}`,
   (req, res, next) =>

@@ -127,4 +127,21 @@ async function update(updateData) {
   return updateOrder;
 }
 
-export { create, findByInvoice, find, deleteOrder, findById, update };
+async function deleteMany(deleteSettings) {
+  const result = await client.orders.deleteMany({
+    where: {
+      id: { in: deleteSettings },
+    },
+  });
+  return result;
+}
+
+export {
+  create,
+  findByInvoice,
+  find,
+  deleteOrder,
+  findById,
+  update,
+  deleteMany,
+};
