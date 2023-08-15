@@ -9,6 +9,7 @@ const ordersSchema = Joi.object({
   negotiated: Joi.any(),
   cash: Joi.number().required(),
   financed: Joi.number().required(),
+  obs: Joi.string().min(0),
   author: Joi.string().required(),
 });
 
@@ -22,6 +23,7 @@ const updateOrdersSchema = Joi.object({
   negotiated: Joi.any(),
   cash: Joi.number().required(),
   financed: Joi.number().required(),
+  obs: Joi.string().min(0),
   author: Joi.string().required(),
 });
 
