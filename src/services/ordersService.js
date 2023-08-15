@@ -54,6 +54,11 @@ async function deleteOrder(deleteSettings) {
   return result;
 }
 
+async function deleteMany(deleteSettings) {
+  const result = await ordersRepository.deleteMany(deleteSettings);
+  return result;
+}
+
 async function update(updateOrder) {
   const doesntExists = await ordersRepository.findById(updateOrder.id);
   if (!doesntExists) {
@@ -63,4 +68,4 @@ async function update(updateOrder) {
   return result;
 }
 
-export { create, find, findOrder, deleteOrder, update };
+export { create, find, findOrder, deleteOrder, update, deleteMany };
