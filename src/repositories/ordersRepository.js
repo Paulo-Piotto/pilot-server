@@ -47,6 +47,31 @@ async function findByInvoice(orderInvoice) {
   return result;
 }
 
+async function findBySameInvoice(orderInvoice) {
+  const result = await client.orders.findFirst({
+    select: {
+      id: true,
+      invoice: true,
+      date: true,
+      stores: true,
+      clients: true,
+      value: true,
+      value_financed: true,
+      value_cash: true,
+      value_negotiated: true,
+      obs: true,
+      author: true,
+    },
+    where: {
+      invoice: {
+        equals: orderInvoice,
+        mode: "insensitive",
+      },
+    },
+  });
+  return result;
+}
+
 async function find(searchSettings) {
   const result = await client.orders.findMany({
     orderBy: [
@@ -144,4 +169,5 @@ export {
   findById,
   update,
   deleteMany,
+  findBySameInvoice,
 };

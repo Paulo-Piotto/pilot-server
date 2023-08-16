@@ -2,8 +2,10 @@ import * as ordersRepository from "../repositories/ordersRepository.js";
 import orderSearchSchema from "../schemas/orderSearchSchema.js";
 
 async function create(newOrder) {
-  const alreadyExists = await ordersRepository.findByInvoice(newOrder.invoice);
-  if (alreadyExists[0]) {
+  const alreadyExists = await ordersRepository.findBySameInvoice(
+    newOrder.invoice
+  );
+  if (alreadyExists) {
     throw { type: "conflict", message: "Esse pedido já foi cadastrado" };
   }
   const result = await ordersRepository.create(newOrder);
