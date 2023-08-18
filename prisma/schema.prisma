@@ -109,3 +109,12 @@ model users {
   email    String @unique
   password String
 }
+
+model menu {
+  id          Int      @id @default(autoincrement())
+  name        String
+  sub         String?
+  description String?
+  value       Int
+  img         String
+}

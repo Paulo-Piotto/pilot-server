@@ -8,6 +8,7 @@ import incomesRouter from "./incomesRouter.js";
 import punchCardRouter from "./punchCardRouter.js";
 import workedDaysRouter from "./workedDaysRouter.js";
 import foodControlRouter from "./foodControlRouter.js";
+import menuRouter from "./menuRouter.js";
 
 const router = Router();
 
@@ -20,5 +21,6 @@ router.use(incomesRouter);
 router.use(punchCardRouter);
 router.use(workedDaysRouter);
 router.use(foodControlRouter);
+router.use(menuRouter);
 
 export default router;
