@@ -23,6 +23,7 @@ const cartSchema = Joi.object({
         address: Joi.string().required(),
       }),
       item: {
+        id: Joi.number(),
         name: Joi.string().required(),
         value: Joi.number().required(),
         sub: Joi.string().min(0),
