@@ -15,6 +15,8 @@ async function create(newOrder) {
       author: newOrder.author,
     },
   });
+
+  return result;
 }
 
 async function findByInvoice(orderInvoice) {
@@ -36,12 +38,14 @@ async function findByInvoice(orderInvoice) {
       value_negotiated: true,
       obs: true,
       author: true,
+      deleted: true,
     },
     where: {
       invoice: {
         contains: orderInvoice,
         mode: "insensitive",
       },
+      deleted: null,
     },
   });
   return result;
@@ -61,12 +65,14 @@ async function findBySameInvoice(orderInvoice) {
       value_negotiated: true,
       obs: true,
       author: true,
+      deleted: true,
     },
     where: {
       invoice: {
         equals: orderInvoice,
         mode: "insensitive",
       },
+      deleted: null,
     },
   });
   return result;
@@ -91,6 +97,7 @@ async function find(searchSettings) {
       value_negotiated: true,
       obs: true,
       author: true,
+      deleted: true,
     },
     where: {
       date: {
@@ -108,6 +115,7 @@ async function find(searchSettings) {
       clients: {
         isArchived: false,
       },
+      deleted: null,
     },
   });
   return result;
@@ -123,9 +131,12 @@ async function findById(id) {
 }
 
 async function deleteOrder(id) {
-  const result = await client.orders.delete({
+  const result = await client.orders.update({
     where: {
       id: id,
+    },
+    data: {
+      deleted: new Date(Date.now()).toISOString(),
     },
   });
   return result;
@@ -153,9 +164,12 @@ async function update(updateData) {
 }
 
 async function deleteMany(deleteSettings) {
-  const result = await client.orders.deleteMany({
+  const result = await client.orders.updateMany({
     where: {
       id: { in: deleteSettings },
+    },
+    data: {
+      deleted: new Date(Date.now()).toISOString(),
     },
   });
   return result;

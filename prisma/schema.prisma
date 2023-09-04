@@ -71,6 +71,7 @@ model orders {
   value_financed   Int
   obs              String?
   author           String?
+  deleted          DateTime?
   clients          clients  @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "orders_client_id_foreign")
   stores           stores   @relation(fields: [store_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "orders_store_id_foreign")
 }

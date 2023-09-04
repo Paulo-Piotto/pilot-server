@@ -33,6 +33,7 @@ async function find(filterObject) {
             gte: filterObject.date.from,
             lte: filterObject.date.to,
           },
+          deleted: null,
         },
       },
       incomes: {
@@ -137,6 +138,7 @@ async function getBalance(filterObject) {
             gte: filterObject.date.from,
             lte: filterObject.date.to,
           },
+          deleted: null,
         },
       },
       incomes: {
